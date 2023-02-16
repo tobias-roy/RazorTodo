@@ -1,0 +1,15 @@
+@page "{handler}"
+Is the default syntax at the top of a page for setting a handler..
+
+@page "{handler?}/{id?}"
+Will format the visible url to hide id? and just be whateverhandler/10
+
+
+Routing links could work like:
+public async Task<IActionResult> OnPostRegisterAsync(){
+  //Add any code below you want to fire before changing route i.e. database changes or the like
+
+  //Insert the routing you want to change to
+  return RedirectToPage();
+}
+
