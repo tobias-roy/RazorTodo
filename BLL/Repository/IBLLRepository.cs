@@ -3,6 +3,6 @@ namespace RazorProject.BLL.Repository
 {
   public interface IBLLRepository
     {
-        public List<TodoItem> GetTodoItems(); 
+        public List<TodoTask> GetTodoTasks(); 
     }
 }

@@ -5,15 +5,15 @@ namespace RazorProject.BLL.Repository
 {
   public class BLLRepository : IBLLRepository
     {
-        public IDALRepository _dALRepository;
+        private readonly IDALRepository _dALRepository;
         public BLLRepository(IDALRepository dALRepository){
             _dALRepository = dALRepository;
         }
 
-    public List<TodoItem> GetTodoItems()
+    public List<TodoTask> GetTodoTasks()
     {
-        List<TodoItem> dalItems = _dALRepository.GetTasks();
-      return 
+        var dalList = _dALRepository.GetTasks();
+        return dalList.Select(o => new TodoTask(o)).ToList();
     }
   }
 }

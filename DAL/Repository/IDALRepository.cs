@@ -4,6 +4,6 @@ namespace RazorProject.DAL.Repository
 {
   public interface IDALRepository
     {
-        public List<TodoItem> GetTasks ();
+        public List<TodoTask> GetTasks ();
     }
 }

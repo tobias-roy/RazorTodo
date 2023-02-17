@@ -4,13 +4,33 @@ namespace RazorProject.DAL.Repository
 {
   public class DALRepository : IDALRepository
     {
-        List<TodoItem> taskList = new();
-
-        private List<TodoItem> _GetTasks () {
-            return taskList;
+        List<TodoTask> taskList;
+        public DALRepository(){
+            taskList = new(){
+                new TodoTask(){
+                    Id = Guid.NewGuid(),
+                    CreatedTime = DateTime.Now,
+                    Description = "Hent Fiskmad",
+                    Priority = Definitions.Priority.Medium,
+                    Completed = false
+                },
+                new TodoTask(){
+                    Id = Guid.NewGuid(),
+                    CreatedTime = DateTime.Now,
+                    Description = "Hent Kattemad",
+                    Priority = Definitions.Priority.Medium,
+                    Completed = false
+                },
+                new TodoTask(){
+                    Id = Guid.NewGuid(),
+                    CreatedTime = DateTime.Now,
+                    Description = "Hent Hundemad",
+                    Priority = Definitions.Priority.Medium,
+                    Completed = false
+                }
+            };
         }
-        public List<TodoItem> GetTasks () {
-            List<TodoItem> dbTaskList = _GetTasks();
+        public List<TodoTask> GetTasks () {
             return taskList;
         }
     }
