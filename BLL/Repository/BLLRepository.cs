@@ -10,9 +10,15 @@ namespace RazorProject.BLL.Repository
             _dALRepository = dALRepository;
         }
 
-    public List<TodoTask> GetTodoTasks()
+    public List<TodoTask> GetUnfinishedTasks()
     {
-        var dalList = _dALRepository.GetTasks();
+        var dalList = _dALRepository.GetUnfinishedTasks();
+        return dalList.Select(o => new TodoTask(o)).ToList();
+    }
+
+    public List<TodoTask> GetFinishedTasks()
+    {
+        var dalList = _dALRepository.GetFinishedTasks();
         return dalList.Select(o => new TodoTask(o)).ToList();
     }
 

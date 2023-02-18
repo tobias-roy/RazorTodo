@@ -3,7 +3,8 @@ namespace RazorProject.BLL.Controllers
 {
   public interface ITaskListController
     { 
-        public List<TodoTask> GetListOfTasks();
+        public List<TodoTask> GetUnfinishedTasks();
+        public List<TodoTask> GetFinishedTasks();
         public bool InsertTask(RazorProject.Pages.Models.TodoTask uiTask);
     }
 }

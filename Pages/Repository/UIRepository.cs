@@ -11,9 +11,14 @@ namespace RazorProject.Pages.Repository
             _taskListController = taskListController;
         }
 
-    public List<TodoTask> GetTodoTasks()
+    public List<TodoTask> GetUnfinishedTasks()
     {
-        var bllList = _taskListController.GetListOfTasks();
+        var bllList = _taskListController.GetUnfinishedTasks();
+        return bllList.Select(o => new TodoTask(o)).ToList();
+    }
+    public List<TodoTask> GetFinishedTasks()
+    {
+        var bllList = _taskListController.GetFinishedTasks();
         return bllList.Select(o => new TodoTask(o)).ToList();
     }
 

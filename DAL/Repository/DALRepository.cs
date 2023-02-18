@@ -18,12 +18,12 @@ namespace RazorProject.DAL.Repository
             return true;
         }
 
-        public List<TodoTask> GetTasks () {
+        public List<TodoTask> GetUnfinishedTasks () {
             List<TodoTask> taskList = new();
             using (var connection = Database.getConnection()){
                 var command = connection.CreateCommand();
                 command.CommandText = 
-                @$"SELECT * FROM Task";
+                @$"SELECT * FROM Task WHERE Completed = 0";
                 var reader = command.ExecuteReader();
                 while(reader.Read()){
                     TodoTask task = new();
@@ -31,12 +31,27 @@ namespace RazorProject.DAL.Repository
                     task.CreatedTime = reader.GetDateTime(1);
                     task.Description = reader.GetString(2);
                     task.Priority = (Definitions.Priority)reader.GetInt16(3);
-                    var boolValue = reader.GetInt16(4);
-                    if(boolValue == 1){
-                        task.Completed = true;
-                    } else {
-                        task.Completed = false;
-                    }
+                    task.Completed = false;
+                    taskList.Add(task);
+                }
+            }
+            return taskList;
+        }
+
+        public List<TodoTask> GetFinishedTasks () {
+            List<TodoTask> taskList = new();
+            using (var connection = Database.getConnection()){
+                var command = connection.CreateCommand();
+                command.CommandText = 
+                @$"SELECT * FROM Task WHERE Completed = 1";
+                var reader = command.ExecuteReader();
+                while(reader.Read()){
+                    TodoTask task = new();
+                    task.Id = (Guid)reader.GetSqlGuid(0);
+                    task.CreatedTime = reader.GetDateTime(1);
+                    task.Description = reader.GetString(2);
+                    task.Priority = (Definitions.Priority)reader.GetInt16(3);
+                    task.Completed = true;
                     taskList.Add(task);
                 }
             }

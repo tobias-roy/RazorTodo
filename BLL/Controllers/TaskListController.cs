@@ -11,8 +11,11 @@ namespace RazorProject.BLL.Controllers
             _bLLRepository = bLLRepository;
         }
         
-        public List<TodoTask> GetListOfTasks(){
-            return _bLLRepository.GetTodoTasks();
+        public List<TodoTask> GetUnfinishedTasks(){
+            return _bLLRepository.GetUnfinishedTasks();
+        }
+        public List<TodoTask> GetFinishedTasks(){
+            return _bLLRepository.GetFinishedTasks();
         }
 
         public bool InsertTask(RazorProject.Pages.Models.TodoTask uiTask){

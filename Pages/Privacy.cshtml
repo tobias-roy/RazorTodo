@@ -1,8 +1,23 @@
 ﻿@page
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Unfinished Tasks";
 }
 <h1>@ViewData["Title"]</h1>
+
+<div class="container px-4 py-5">
+<div class="text-center">
+    <h2 class="display-4">List of Tasks you have to do:</h2>
+</div>
+    @foreach (var item in Model.GetFinishedTasks())
+    {
+        <div class="feature col text-center">
+            <h3 class="fs-2">@item.Description</h3>
+            <p>Priority: @item.Priority</p>
+            <p>Created: @item.CreatedTime</p>
+            <p>Completed: @item.Completed</p>
+        </div>
+    }
+</div>
 
 <p>Use this page to detail your site's privacy policy.</p>

@@ -19,8 +19,8 @@ public class IndexModel : PageModel
     public void OnGet() {
     }
 
-    public List<TodoTask> ListOfTasks () {
-        var listOfTasks = _uiRepository.GetTodoTasks();
+    public List<TodoTask> GetUnfinishedTasks () {
+        var listOfTasks = _uiRepository.GetUnfinishedTasks();
         return listOfTasks;
     }
 
