@@ -1,14 +1,11 @@
 ﻿@page
-@model PrivacyModel
+@model UnfinishedModel
 @{
-    ViewData["Title"] = "Unfinished Tasks";
+    ViewData["Title"] = "Finished Tasks";
 }
 <h1>@ViewData["Title"]</h1>
 
 <div class="container px-4 py-5">
-<div class="text-center mb-3">
-    <h2 class="display-4">Tasks you've completed:</h2>
-</div>
     @foreach (var item in Model.GetFinishedTasks())
     {
         <div class="feature col text-center">
@@ -17,5 +14,9 @@
             <p>Created: @item.CreatedTime</p>
             <p>Completed: @item.Completed</p>
         </div>
+        <form method="post" asp-page="privacy" asp-page-handler="MarkAsUnFinished" class="form-inline">
+            <input type="hidden" name="Id" value="@item.Id"/>
+            <button type="submit" id="btnMarkAsUnFinished" class="btn btn-default btn-outline-info">Mark task as undone</button>
+        </form>
     }
 </div>

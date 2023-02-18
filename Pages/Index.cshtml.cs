@@ -24,8 +24,8 @@ public class IndexModel : PageModel
         return listOfTasks;
     }
 
-    public IActionResult OnPostAddOnClick(){
-        
+    public IActionResult OnPostMarkAsFinished(Guid id){
+        _uiRepository.MarkTaskAsFinished(id);
         return Page();
     }
 }

@@ -9,7 +9,14 @@ namespace RazorProject.BLL.Repository
         public BLLRepository(IDALRepository dALRepository){
             _dALRepository = dALRepository;
         }
-
+    private DAL.Models.TodoTask taskMapper(BLL.Models.TodoTask bllTask){
+      DAL.Models.TodoTask dalTask = new();
+      dalTask.Id = bllTask.Id;
+      dalTask.Description = bllTask.Description;
+      dalTask.Priority = bllTask.Priority;
+      dalTask.Completed = bllTask.Completed;
+      return dalTask;
+    }
     public List<TodoTask> GetUnfinishedTasks()
     {
         var dalList = _dALRepository.GetUnfinishedTasks();
@@ -22,22 +29,20 @@ namespace RazorProject.BLL.Repository
         return dalList.Select(o => new TodoTask(o)).ToList();
     }
 
-    // private DAL.Models.TodoTask taskMapper(TodoTask task){
-    //   DAL.Models.TodoTask returnTask = new();
-    //   returnTask.Description = task.Description;
-    //   returnTask.Priority = task.Priority;
-    //   returnTask.Completed = task.Completed;
-    //   return returnTask;
-    // }
-
     public bool InsertTask(TodoTask bllTask){
-      DAL.Models.TodoTask task = new(){
-        Description = bllTask.Description,
-        Priority = bllTask.Priority,
-        Completed = bllTask.Completed
-      };
+      _dALRepository.InsertTask(taskMapper(bllTask));
+      return true;
+    }
 
-      _dALRepository.InsertTask(task);
+    public bool MarkTaskAsFinished(Guid id)
+    {
+      _dALRepository.MarkTaskAsFinished(id);
+      return true;
+    }
+
+    public bool MarkTaskAsUnFinished(Guid id)
+    {
+      _dALRepository.MarkTaskAsUnFinished(id);
       return true;
     }
   }

@@ -1,13 +1,10 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Todo or not todo";
+    ViewData["Title"] = "Unfinished tasks";
 }
-
+<h1>@ViewData["Title"]</h1>
 <div class="container px-4 py-5">
-<div class="text-center">
-    <h2 class="display-4">List of Tasks you have to do:</h2>
-</div>
     @foreach (var item in Model.GetUnfinishedTasks())
     {
         <div class="feature col text-center">
@@ -16,10 +13,9 @@
             <p>Created: @item.CreatedTime</p>
             <p>Completed: @item.Completed</p>
         </div>
+        <form method="post" asp-page="index" asp-page-handler="MarkAsFinished" class="form-inline">
+            <input type="hidden" name="Id" value="@item.Id"/>
+            <button type="submit" id="btnMarkAsDone" class="btn btn-default btn-outline-info">Mark task as done</button>
+        </form>
     }
 </div>
-
-
-<form method="post" asp-page-handler="AddOnClick" class="form-inline">
-    <button id="btnInsertTask"class="btn btn-default btn-outline-info">press for magic</button>
-</form>

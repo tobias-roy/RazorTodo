@@ -18,6 +18,30 @@ namespace RazorProject.DAL.Repository
             return true;
         }
 
+        public bool MarkTaskAsFinished(Guid id){
+            using (var connection = Database.getConnection()){
+                var command = connection.CreateCommand();
+                command.CommandText = 
+                @$"UPDATE Task
+                SET Completed = 1
+                WHERE Id = '{id}'";
+                command.ExecuteNonQuery();
+            }
+            return true;
+        }
+
+        public bool MarkTaskAsUnFinished(Guid id){
+            using (var connection = Database.getConnection()){
+                var command = connection.CreateCommand();
+                command.CommandText = 
+                @$"UPDATE Task
+                SET Completed = 0
+                WHERE Id = '{id}'";
+                command.ExecuteNonQuery();
+            }
+            return true;
+        }
+
         public List<TodoTask> GetUnfinishedTasks () {
             List<TodoTask> taskList = new();
             using (var connection = Database.getConnection()){
@@ -57,5 +81,5 @@ namespace RazorProject.DAL.Repository
             }
             return taskList;
         }
-    }
+  }
 }

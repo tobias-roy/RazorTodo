@@ -12,6 +12,7 @@ namespace RazorProject
             services.AddSingleton<IBLLRepository, BLLRepository>();
             services.AddSingleton<IUIRepository, UIRepository>();
             services.AddSingleton<ITaskListController, TaskListController>();
+            services.AddSingleton<ISingleTaskController, SingleTaskController>();
             return services;
         }    
     }

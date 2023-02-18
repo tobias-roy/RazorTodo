@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorProject.Pages.Models;
 using RazorProject.Pages.Repository;
 
 namespace RazorProject.Pages;
 
-public class PrivacyModel : PageModel
+public class UnfinishedModel : PageModel
 {
-    private readonly ILogger<PrivacyModel> _logger;
+    private readonly ILogger<UnfinishedModel> _logger;
     private readonly IUIRepository _uiRepository;
 
-    public PrivacyModel(ILogger<PrivacyModel> logger, IUIRepository uiRepository) {
+    public UnfinishedModel(ILogger<UnfinishedModel> logger, IUIRepository uiRepository) {
         _logger = logger;
         _uiRepository = uiRepository;
     }
@@ -21,6 +22,11 @@ public class PrivacyModel : PageModel
     public List<TodoTask> GetFinishedTasks () {
         var listOfTasks = _uiRepository.GetFinishedTasks();
         return listOfTasks;
+    }
+
+    public IActionResult OnPostMarkAsUnFinished(Guid id){
+        _uiRepository.MarkTaskAsUnFinished(id);
+        return Page();
     }
 
 }

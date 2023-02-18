@@ -6,6 +6,8 @@ namespace RazorProject.Pages.Repository
     {
         public List<TodoTask> GetUnfinishedTasks();
         public List<TodoTask> GetFinishedTasks();
+        public bool MarkTaskAsFinished(Guid id);
+        public bool MarkTaskAsUnFinished(Guid id);
         bool InsertTask(string description, Priority priority, bool completed);
     }
 }

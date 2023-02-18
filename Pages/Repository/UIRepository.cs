@@ -7,8 +7,10 @@ namespace RazorProject.Pages.Repository
   public class UIRepository : IUIRepository
     {
         private readonly ITaskListController _taskListController;
-        public UIRepository(ITaskListController taskListController){
+        private readonly ISingleTaskController _singleTaskController;
+        public UIRepository(ITaskListController taskListController, ISingleTaskController singleTaskController){
             _taskListController = taskListController;
+            _singleTaskController = singleTaskController;
         }
 
     public List<TodoTask> GetUnfinishedTasks()
@@ -30,6 +32,18 @@ namespace RazorProject.Pages.Repository
       };
 
       _taskListController.InsertTask(task);
+      return true;
+    }
+
+     public bool MarkTaskAsFinished(Guid id)
+    {
+      _singleTaskController.MarkTaskAsFinished(id);
+      return true;
+    }
+
+    public bool MarkTaskAsUnFinished(Guid id)
+    {
+      _singleTaskController.MarkTaskAsUnFinished(id);
       return true;
     }
   }
