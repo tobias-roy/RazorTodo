@@ -1,6 +1,7 @@
 using RazorProject.BLL.Controllers;
 using RazorProject.BLL.Repository;
 using RazorProject.DAL.Repository;
+using RazorProject.Pages.Repository;
 
 namespace RazorProject
 {
@@ -9,6 +10,7 @@ namespace RazorProject
         public static IServiceCollection RegisterServices(this IServiceCollection services){
             services.AddSingleton<IDALRepository, DALRepository>();
             services.AddSingleton<IBLLRepository, BLLRepository>();
+            services.AddSingleton<IUIRepository, UIRepository>();
             services.AddSingleton<ITaskListController, TaskListController>();
             return services;
         }    

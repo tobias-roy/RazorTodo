@@ -15,5 +15,7 @@ namespace RazorProject.BLL.Models
             Priority = todoItem.Priority;
             Completed = todoItem.Completed;
         }
-    }
+        public TodoTask (){
+        }
+  }
 }

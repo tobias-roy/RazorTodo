@@ -1,4 +1,5 @@
 using RazorProject.BLL.Repository;
+using RazorProject.BLL.Models;
 
 namespace RazorProject.BLL.Controllers
 {
@@ -10,12 +11,20 @@ namespace RazorProject.BLL.Controllers
             _bLLRepository = bLLRepository;
         }
         
-        public string GetListOfTasks(){
-            var testList = _bLLRepository.GetTodoTasks();
-            return testList.FirstOrDefault().Description;
+        public List<TodoTask> GetListOfTasks(){
+            return _bLLRepository.GetTodoTasks();
         }
 
+        public bool InsertTask(RazorProject.Pages.Models.TodoTask uiTask){
+            BLL.Models.TodoTask task = new(){
+            Description = uiTask.Description,
+            Priority = uiTask.Priority,
+            Completed = uiTask.Completed
+        };
 
-
+        _bLLRepository.InsertTask(task);
+        return true;
+    }
     }
 }
+

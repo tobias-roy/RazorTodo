@@ -4,10 +4,22 @@
     ViewData["Title"] = "Todo or not todo";
 }
 
+<div class="container px-4 py-5">
 <div class="text-center">
-    <h1 class="display-4">Hot reload works!!</h1>
-    <h1 class="display-4">Hot reload works!!</h1>
-    <h1 class="display-4">@Model.GetString()</h1>
-    <h1 class="display-4"></h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2 class="display-4">List of Tasks you have to do:</h2>
 </div>
+    @foreach (var item in Model.ListOfTasks())
+    {
+        <div class="feature col text-center">
+            <h3 class="fs-2">@item.Description</h3>
+            <p>Priority: @item.Priority</p>
+            <p>Created: @item.CreatedTime</p>
+            <p>Completed: @item.Completed</p>
+        </div>
+    }
+</div>
+
+
+<form method="post" asp-page-handler="AddOnClick" class="form-inline">
+    <button id="btnInsertTask"class="btn btn-default btn-outline-info">press for magic</button>
+</form>
