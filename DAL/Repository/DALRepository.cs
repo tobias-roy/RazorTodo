@@ -1,5 +1,4 @@
 using RazorProject.DAL.Models;
-
 namespace RazorProject.DAL.Repository
 {
   public class DALRepository : IDALRepository
@@ -11,8 +10,8 @@ namespace RazorProject.DAL.Repository
             using (var connection = Database.getConnection()){
                 var command = connection.CreateCommand();
                 command.CommandText = 
-                @$"INSERT INTO Task
-                VALUES ('{newId}', '{DateTime.UtcNow}', '{task.Description}', '{(int)task.Priority}', '{booleanValue}');";
+                @$"INSERT INTO Task (Id, CreatedTime, Description, Priority, Completed)
+                VALUES ('{newId}', GETDATE(), '{task.Description}', '{(int)task.Priority}', '{booleanValue}');";
                 command.ExecuteNonQuery();
             }
             return true;
@@ -37,6 +36,16 @@ namespace RazorProject.DAL.Repository
                 @$"UPDATE Task
                 SET Completed = 0
                 WHERE Id = '{id}'";
+                command.ExecuteNonQuery();
+            }
+            return true;
+        }
+
+        public bool DeleteTask(Guid id){
+            using (var connection = Database.getConnection()){
+                var command = connection.CreateCommand();
+                command.CommandText = 
+                @$"DELETE FROM Task WHERE Id = '{id}'";
                 command.ExecuteNonQuery();
             }
             return true;

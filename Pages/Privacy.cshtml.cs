@@ -29,5 +29,10 @@ public class UnfinishedModel : PageModel
         return Page();
     }
 
+    public IActionResult OnPostDelete(Guid id){
+        _uiRepository.DeleteTask(id);
+        return Page();
+    }
+
 }
 

@@ -9,5 +9,6 @@ namespace RazorProject.DAL.Repository
         public bool MarkTaskAsFinished(Guid id);
         public bool MarkTaskAsUnFinished(Guid id);
         public bool InsertTask(TodoTask task);
+        public bool DeleteTask(Guid id);
     }
 }

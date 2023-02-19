@@ -4,6 +4,8 @@
     ViewData["Title"] = "Unfinished tasks";
 }
 <h1>@ViewData["Title"]</h1>
+<div id="modal-placeholder"></div>
+<button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="btn btn-default btn-outline-info">Add task</button></code>
 <div class="container px-4 py-5">
     @foreach (var item in Model.GetUnfinishedTasks())
     {
@@ -13,7 +15,7 @@
             <p>Created: @item.CreatedTime</p>
             <p>Completed: @item.Completed</p>
         </div>
-        <form method="post" asp-page="index" asp-page-handler="MarkAsFinished" class="form-inline">
+        <form method="post" asp-page-handler="MarkAsFinished" class="form-inline">
             <input type="hidden" name="Id" value="@item.Id"/>
             <button type="submit" id="btnMarkAsDone" class="btn btn-default btn-outline-info">Mark task as done</button>
         </form>

@@ -45,5 +45,10 @@ namespace RazorProject.BLL.Repository
       _dALRepository.MarkTaskAsUnFinished(id);
       return true;
     }
+
+    public bool DeleteTask(Guid id){
+      _dALRepository.DeleteTask(id);
+      return true;
+    }
   }
 }

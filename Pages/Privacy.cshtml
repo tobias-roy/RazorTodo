@@ -14,9 +14,13 @@
             <p>Created: @item.CreatedTime</p>
             <p>Completed: @item.Completed</p>
         </div>
-        <form method="post" asp-page="privacy" asp-page-handler="MarkAsUnFinished" class="form-inline">
+        <form method="post" asp-page-handler="MarkAsUnFinished" class="form-inline">
             <input type="hidden" name="Id" value="@item.Id"/>
             <button type="submit" id="btnMarkAsUnFinished" class="btn btn-default btn-outline-info">Mark task as undone</button>
+        </form>
+        <form method="post" asp-page-handler="Delete" class="form-inline">
+            <input type="hidden" name="Id" value="@item.Id"/>
+            <button type="submit" id="btnDelete" class="btn btn-default btn-outline-info">Delete</button>
         </form>
     }
 </div>

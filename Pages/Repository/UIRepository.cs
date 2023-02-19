@@ -1,6 +1,5 @@
 using RazorProject.Pages.Models;
 using RazorProject.BLL.Controllers;
-using RazorProject.Definitions;
 
 namespace RazorProject.Pages.Repository
 {
@@ -24,14 +23,12 @@ namespace RazorProject.Pages.Repository
         return bllList.Select(o => new TodoTask(o)).ToList();
     }
 
-    public bool InsertTask(string description, Priority priority, bool completed){
-      TodoTask task = new(){
-        Description = description,
-        Priority = priority,
-        Completed = completed
+    public bool InsertTask(InputTask task){
+      TodoTask controllerTask = new(){
+        Description = task.Description,
+        Priority = task.Priority,
       };
-
-      _taskListController.InsertTask(task);
+      _taskListController.InsertTask(controllerTask);
       return true;
     }
 
@@ -44,6 +41,11 @@ namespace RazorProject.Pages.Repository
     public bool MarkTaskAsUnFinished(Guid id)
     {
       _singleTaskController.MarkTaskAsUnFinished(id);
+      return true;
+    }
+
+    public bool DeleteTask(Guid id){
+      _singleTaskController.DeleteTask(id);
       return true;
     }
   }

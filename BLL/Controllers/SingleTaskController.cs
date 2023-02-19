@@ -38,6 +38,11 @@ namespace RazorProject.BLL.Controllers
       _bLLRepository.MarkTaskAsUnFinished(id);
       return true;
     }
+
+    public bool DeleteTask(Guid id){
+      _bLLRepository.DeleteTask(id);
+      return true;
+    }
   }
 }
 
