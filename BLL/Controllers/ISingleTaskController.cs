@@ -7,5 +7,6 @@ namespace RazorProject.BLL.Controllers
         public bool MarkTaskAsUnFinished(Guid id);
         public bool DeleteTask(Guid id);
         public RazorProject.Pages.Models.TodoTask GetTaskById(Guid id);
-    }
+        public bool UpdateTask(RazorProject.Pages.Models.TodoTask task);
+  }
 }

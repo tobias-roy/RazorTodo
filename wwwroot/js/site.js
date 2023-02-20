@@ -41,6 +41,25 @@ $(function () {
     });
   });
 
+  placeholderElement.on('click', '[data-edit="modal"]', function (event) {
+    event.preventDefault();
+    
+    var form = $(this).parents('.modal').find('form');
+    var actionUrl = form.attr('action');
+    var dataToSend = form.serialize();
+
+    $.post(actionUrl, dataToSend).done(function (data) {
+      var newBody = $('.modal-body', data);
+      placeholderElement.find('.modal-body').replaceWith(newBody);
+
+      var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+      if (isValid) {
+          placeholderElement.find('.modal').modal('hide');
+          location.reload();
+      }
+    });
+  });
+
   placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {
     event.preventDefault();
     placeholderElement.find('.modal').modal('hide');

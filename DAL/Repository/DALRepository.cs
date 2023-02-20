@@ -108,5 +108,18 @@ namespace RazorProject.DAL.Repository
             }
         return task;
     }
+
+    public bool UpdateTask(TodoTask todoTask)
+    {
+      using (var connection = Database.getConnection()){
+            var command = connection.CreateCommand();
+            command.CommandText = 
+            @$"UPDATE Task
+            SET Description = '{todoTask.Description}', Priority = '{(int)todoTask.Priority}'
+            WHERE Id = '{todoTask.Id}'";
+            command.ExecuteNonQuery();
+        }
+        return true;
+    }
   }
 }

@@ -1,4 +1,5 @@
 using RazorProject.BLL.Repository;
+using RazorProject.Pages.Models;
 
 namespace RazorProject.BLL.Controllers
 {
@@ -56,6 +57,12 @@ namespace RazorProject.BLL.Controllers
     public RazorProject.Pages.Models.TodoTask GetTaskById(Guid id)
     {
       return invertTaskMapper(_bLLRepository.GetTaskById(id));
+    }
+
+    public bool UpdateTask(TodoTask task)
+    {
+      _bLLRepository.UpdateTask(taskMapper(task));
+      return true;
     }
   }
 }

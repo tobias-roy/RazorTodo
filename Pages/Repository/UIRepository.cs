@@ -24,11 +24,11 @@ namespace RazorProject.Pages.Repository
     }
 
     public bool InsertTask(InputTask task){
-      TodoTask controllerTask = new(){
+      TodoTask uiTask = new(){
         Description = task.Description,
         Priority = task.Priority,
       };
-      _taskListController.InsertTask(controllerTask);
+      _taskListController.InsertTask(uiTask);
       return true;
     }
 
@@ -52,6 +52,12 @@ namespace RazorProject.Pages.Repository
     public TodoTask GetTaskById(Guid id)
     {
        return _singleTaskController.GetTaskById(id);
+    }
+
+    public bool UpdateTask(TodoTask task)
+    {
+      _singleTaskController.UpdateTask(task);
+      return true;
     }
   }
 }

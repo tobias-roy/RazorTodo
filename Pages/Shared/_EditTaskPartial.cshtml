@@ -14,7 +14,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-page-handler="TaskInputPartial">
+                <form asp-page-handler="EditTaskPartial">
+                    <input asp-for="Id" type="hidden" value="@ViewData.Model.Id" />
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <div class="form-group mb-3">
                         <label asp-for="Description"></label>
@@ -32,7 +33,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary button-85" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary button-85" data-save="modal">Add</button>
+                <button type="button" class="btn btn-primary button-85" data-edit="modal">Save</button>
             </div>
         </div>
     </div>

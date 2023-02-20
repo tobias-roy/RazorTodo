@@ -48,10 +48,20 @@ public class IndexModel : PageModel
         };
     }
 
+    public PartialViewResult OnPostEditTaskPartial(TodoTask task){
+        if(ModelState.IsValid){
+            _uiRepository.UpdateTask(task);
+        }
+
+        return new PartialViewResult{
+            ViewName = "_EditTaskPartial",
+            ViewData = new ViewDataDictionary<TodoTask>(ViewData, task)
+        };
+    }
+
     public PartialViewResult OnGetEditTaskPartial(Guid id){
         TodoTask task = _uiRepository.GetTaskById(id);
         
-
         return new PartialViewResult{
             ViewName = "_EditTaskPartial",
             ViewData = new ViewDataDictionary<TodoTask>(ViewData, task)

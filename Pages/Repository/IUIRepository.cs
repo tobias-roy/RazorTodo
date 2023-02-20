@@ -10,5 +10,6 @@ namespace RazorProject.Pages.Repository
         public bool MarkTaskAsUnFinished(Guid id);
         public bool DeleteTask(Guid id);
         public bool InsertTask(InputTask task);
-    }
+        public bool UpdateTask(TodoTask task);
+  }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using RazorProject.Definitions;
 
 namespace RazorProject.Pages.Models
@@ -6,6 +7,7 @@ namespace RazorProject.Pages.Models
   {
     public Guid Id { get; set; }
     public DateTime CreatedTime { get; set; }
+    [Required][MaxLength(25)]
     public String Description { get; set; }
     public Priority Priority { get; set; }
     public Boolean Completed { get; set; }

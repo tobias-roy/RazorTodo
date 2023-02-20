@@ -61,5 +61,11 @@ namespace RazorProject.BLL.Repository
       _dALRepository.DeleteTask(id);
       return true;
     }
+
+    public bool UpdateTask(TodoTask todoTask)
+    {
+      _dALRepository.UpdateTask(taskMapper(todoTask));
+      return true;
+    }
   }
 }
