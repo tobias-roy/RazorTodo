@@ -43,6 +43,20 @@ namespace RazorProject.BLL.Controllers
       _bLLRepository.DeleteTask(id);
       return true;
     }
+
+    private Pages.Models.TodoTask invertTaskMapper(BLL.Models.TodoTask bllTask){
+          Pages.Models.TodoTask uiTask = new();
+          uiTask.Id = bllTask.Id;
+          uiTask.Description = bllTask.Description;
+          uiTask.Priority = bllTask.Priority;
+          uiTask.Completed = bllTask.Completed;
+          return uiTask;
+        }
+
+    public RazorProject.Pages.Models.TodoTask GetTaskById(Guid id)
+    {
+      return invertTaskMapper(_bLLRepository.GetTaskById(id));
+    }
   }
 }
 

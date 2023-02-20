@@ -12,9 +12,9 @@
       
         <div class="container-sm p-3 w-50 undoneTask">
             <div class="text-end">
-                <button name="btnEditTask" value="@item.Id" type="submit" id="btnEditTask" class="button-85">Edit</button>
+                <button type="submit" id="@item.Id" class="button-85" data-toggle="ajax-edit-modal" data-url="@Url.Page("Index", "EditTaskPartial")">Edit</button>
             </div>
-            <div class="feature col text-center">
+            <div id="@item.Id" class="feature col text-center">
                 <h4 class="fs-2">@item.Description</h4>
                 <p>Priority: @item.Priority</p>
                 <p>Created: @item.CreatedTime</p>

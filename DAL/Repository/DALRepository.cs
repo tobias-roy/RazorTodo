@@ -90,5 +90,23 @@ namespace RazorProject.DAL.Repository
             }
             return taskList;
         }
+
+    public TodoTask GetTaskById(Guid id)
+    {
+        TodoTask task = new();
+        using (var connection = Database.getConnection()){
+            var command = connection.CreateCommand();
+            command.CommandText = 
+            @$"SELECT * FROM Task WHERE Id = '{id}'";
+            var reader = command.ExecuteReader();
+            reader.Read();
+                task.Id = (Guid)reader.GetSqlGuid(0);
+                task.CreatedTime = reader.GetDateTime(1);
+                task.Description = reader.GetString(2);
+                task.Priority = (Definitions.Priority)reader.GetInt16(3);
+                task.Completed = false;
+            }
+        return task;
+    }
   }
 }

@@ -6,6 +6,7 @@ namespace RazorProject.DAL.Repository
     {
         public List<TodoTask> GetUnfinishedTasks ();
         public List<TodoTask> GetFinishedTasks ();
+        public TodoTask GetTaskById(Guid id);
         public bool MarkTaskAsFinished(Guid id);
         public bool MarkTaskAsUnFinished(Guid id);
         public bool InsertTask(TodoTask task);

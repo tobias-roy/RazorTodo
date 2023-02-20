@@ -13,6 +13,15 @@ $(function () {
       });
   });
 
+  $('button[data-toggle="ajax-edit-modal"]').click(function (event) {
+    var url = $(this).data('url');
+    var data = {id: this.id};  
+    $.get(url, data).done(function (data) {
+        placeholderElement.html(data);
+        placeholderElement.find('.modal').modal('show');
+    });
+  });
+
   placeholderElement.on('click', '[data-save="modal"]', function (event) {
     event.preventDefault();
 

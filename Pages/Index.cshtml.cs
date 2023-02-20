@@ -47,4 +47,14 @@ public class IndexModel : PageModel
             ViewData = new ViewDataDictionary<InputTask>(ViewData, task)
         };
     }
+
+    public PartialViewResult OnGetEditTaskPartial(Guid id){
+        TodoTask task = _uiRepository.GetTaskById(id);
+        
+
+        return new PartialViewResult{
+            ViewName = "_EditTaskPartial",
+            ViewData = new ViewDataDictionary<TodoTask>(ViewData, task)
+        };
+    }
 }

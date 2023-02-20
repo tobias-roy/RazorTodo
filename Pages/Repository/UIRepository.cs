@@ -48,5 +48,10 @@ namespace RazorProject.Pages.Repository
       _singleTaskController.DeleteTask(id);
       return true;
     }
+
+    public TodoTask GetTaskById(Guid id)
+    {
+       return _singleTaskController.GetTaskById(id);
+    }
   }
 }

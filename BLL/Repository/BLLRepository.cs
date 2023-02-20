@@ -29,6 +29,17 @@ namespace RazorProject.BLL.Repository
         return dalList.Select(o => new TodoTask(o)).ToList();
     }
 
+    public TodoTask GetTaskById(Guid id){
+      var daltask = _dALRepository.GetTaskById(id);
+      RazorProject.BLL.Models.TodoTask task = new();
+        task.Description = daltask.Description;
+        task.CreatedTime = daltask.CreatedTime;
+        task.Id = daltask.Id;
+        task.Priority = daltask.Priority;
+        task.Completed = daltask.Completed;
+      return task;
+    }
+
     public bool InsertTask(TodoTask bllTask){
       _dALRepository.InsertTask(taskMapper(bllTask));
       return true;
