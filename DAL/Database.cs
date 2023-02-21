@@ -4,22 +4,34 @@ namespace RazorProject.DAL
 {
   public class Database
     {
-        public static SqlConnection getConnection() {
+        private static string connectionString(){
             SqlConnectionStringBuilder sb = new(){
                 DataSource = "localhost",
                 InitialCatalog = "TodoDb",
                 UserID = "SA",
                 Password = "P@ssw0rd"
             };
-            // sb.DataSource = "localhost";
-            // sb.InitialCatalog = "TodoDb";
-            // sb.UserID = "SA";
-            // sb.Password = "P@ssw0rd";
-
-            string connectionString = sb.ToString();
-            SqlConnection connection = new SqlConnection(connectionString);
+            return sb.ToString();
+        }
+        public static SqlConnection getConnection() {
+            SqlConnection connection = new SqlConnection(connectionString());
             connection.Open();
             return connection;
+        }
+
+        public static bool CheckConnection() {
+            SqlConnection connection = new SqlConnection(connectionString());
+            try {
+                connection.Open();
+                return true;
+            } 
+            catch (SqlException error) {
+                Console.Write(error);
+                return false;
+            }
+            finally {
+                connection.Dispose();
+            }
         }
     }
 }

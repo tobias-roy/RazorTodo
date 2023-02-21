@@ -34,5 +34,8 @@ public class UnfinishedModel : PageModel
         return Page();
     }
 
+    public bool CheckConnection(){
+        return _uiRepository.CheckConnection();
+    }
 }
 

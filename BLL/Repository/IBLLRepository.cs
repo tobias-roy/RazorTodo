@@ -9,7 +9,8 @@ namespace RazorProject.BLL.Repository
         public bool MarkTaskAsFinished(Guid id);
         public bool MarkTaskAsUnFinished(Guid id);
         public bool DeleteTask(Guid id);
-        bool InsertTask(TodoTask task);
-        bool UpdateTask(TodoTask todoTask);
+        public bool InsertTask(TodoTask task);
+        public bool UpdateTask(TodoTask todoTask);
+        public bool CheckConnection();
   }
 }

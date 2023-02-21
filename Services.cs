@@ -13,6 +13,7 @@ namespace RazorProject
             services.AddSingleton<IUIRepository, UIRepository>();
             services.AddSingleton<ITaskListController, TaskListController>();
             services.AddSingleton<ISingleTaskController, SingleTaskController>();
+            services.AddSingleton<IConnectionController, ConnectionController>();
             return services;
         }    
     }

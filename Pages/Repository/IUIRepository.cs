@@ -11,5 +11,6 @@ namespace RazorProject.Pages.Repository
         public bool DeleteTask(Guid id);
         public bool InsertTask(InputTask task);
         public bool UpdateTask(TodoTask task);
+        public bool CheckConnection();
   }
 }
