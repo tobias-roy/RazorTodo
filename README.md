@@ -48,3 +48,21 @@ SqlConnectionStringBuilder sb = new(){
   Password = "P@ssw0rd"
 };
 ```
+
+## Usage
+#### Development
+Navigate to the project folder using a terminal and run the following command:
+
+```
+dotnet run
+```
+Open a webbrowser and navigate to http://localhost:5173
+
+#### Production
+```
+Don't
+```
+
+## Future development
+#### Error handling
+Currently version 1.0 does not support any special error handling - This is planned for the next release
