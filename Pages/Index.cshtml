@@ -3,10 +3,18 @@
 @{
     ViewData["Title"] = "Unfinished tasks";
 }
-<h1>@ViewData["Title"]</h1>
 <div id="modal-placeholder"></div>
-<button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="button-85">Add task</button></code>
 <div class="container-md px-4 py-5">
+    @if(Model.GetUnfinishedTasks().Count == 0){
+        <button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="button-85">Add task</button>
+        <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
+        <div class="row">
+            <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_7fCbvNSmFD.json" class="w-50 mx-auto"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
+        </div>
+    } else {
+        <h1>@ViewData["Title"]</h1>
+        <button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="button-85">Add task</button>
+    }
     @foreach (var item in Model.GetUnfinishedTasks())
     {
       

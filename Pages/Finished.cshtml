@@ -3,9 +3,18 @@
 @{
     ViewData["Title"] = "Finished Tasks";
 }
-<h1>@ViewData["Title"]</h1>
 
 <div class="container px-4 py-5">
+    @if(Model.GetFinishedTasks().Count == 0){
+        <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
+        
+        <div class="row text-center">
+            <h1>No finished tasks...</h1>
+            <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_bzZ00kY9hY.json" class="w-50 mx-auto"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
+        </div>
+    } else {
+        <h1>@ViewData["Title"]</h1>
+    }
     @foreach (var item in Model.GetFinishedTasks())
     {
         <div class="container-sm p-3 w-50 undoneTask">

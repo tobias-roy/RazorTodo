@@ -53,20 +53,24 @@ namespace RazorProject.DAL.Repository
 
         public List<TodoTask> GetUnfinishedTasks () {
             List<TodoTask> taskList = new();
-            using (var connection = Database.getConnection()){
-                var command = connection.CreateCommand();
-                command.CommandText = 
-                @$"SELECT * FROM Task WHERE Completed = 0";
-                var reader = command.ExecuteReader();
-                while(reader.Read()){
-                    TodoTask task = new();
-                    task.Id = (Guid)reader.GetSqlGuid(0);
-                    task.CreatedTime = reader.GetDateTime(1);
-                    task.Description = reader.GetString(2);
-                    task.Priority = (Definitions.Priority)reader.GetInt16(3);
-                    task.Completed = false;
-                    taskList.Add(task);
+            try{
+                using (var connection = Database.getConnection()){
+                    var command = connection.CreateCommand();
+                    command.CommandText = 
+                    @$"SELECT * FROM Task WHERE Completed = 0 ORDER BY CreatedTime DESC";
+                    var reader = command.ExecuteReader();
+                    while(reader.Read()){
+                        TodoTask task = new();
+                        task.Id = (Guid)reader.GetSqlGuid(0);
+                        task.CreatedTime = reader.GetDateTime(1);
+                        task.Description = reader.GetString(2);
+                        task.Priority = (Definitions.Priority)reader.GetInt16(3);
+                        task.Completed = false;
+                        taskList.Add(task);
+                    }
                 }
+            } catch {
+                
             }
             return taskList;
         }
@@ -76,7 +80,7 @@ namespace RazorProject.DAL.Repository
             using (var connection = Database.getConnection()){
                 var command = connection.CreateCommand();
                 command.CommandText = 
-                @$"SELECT * FROM Task WHERE Completed = 1";
+                @$"SELECT * FROM Task WHERE Completed = 1 ORDER BY CreatedTime DESC";
                 var reader = command.ExecuteReader();
                 while(reader.Read()){
                     TodoTask task = new();
