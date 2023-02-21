@@ -13,10 +13,18 @@ This project is using [Docker](https://www.docker.com/). To install docker deskt
 
 #### Database
 This project is currently set up to use a [Azure Sql Edge database](https://hub.docker.com/_/microsoft-azure-sql-edge) running in a docker container. <br>
+If you wish to persist the database make sure you create a volume.
+
+```
+docker volume create tododb
+```
+
 To initialize the container run the following command:
+
 ```
-docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=P@ssw0rd' -p 1433:1433 --name RazorTodoDatabase -d mcr.microsoft.com/azure-sql-edge
+docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=P@ssw0rd' -p 1433:1433 --mount type=volume,src=tododb,target=tasks --name RazorTodoDatabase -d mcr.microsoft.com/azure-sql-edge
 ```
+
 Connect to the database via your prefered interface, use the info:
 - Server: localhost
 - Authentication Type: SQL Login
@@ -30,8 +38,8 @@ Run the following query to create the database:
   CREATE TABLE Task (Id UNIQUEIDENTIFIER PRIMARY KEY, CreatedTime DATETIME, Description VARCHAR(25), Priority SMALLINT, Completed SMALLINT);
 ```
 
-
 With this command it's possible to connect to the database with the following connection string:
+
 ```
 SqlConnectionStringBuilder sb = new(){
   DataSource = "localhost",
