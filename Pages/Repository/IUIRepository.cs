@@ -1,7 +1,7 @@
-using RazorProject.BLL.Models;
-namespace RazorProject.BLL.Repository
+using RazorProject.Pages.Models;
+namespace RazorProject.Pages.Repository
 {
-  public interface IBLLRepository
+  public interface IUIRepository
     {
         public List<TodoTask> GetUnfinishedTasks();
         public List<TodoTask> GetFinishedTasks();
@@ -9,7 +9,7 @@ namespace RazorProject.BLL.Repository
         public bool MarkTaskAsFinished(Guid id);
         public bool MarkTaskAsUnFinished(Guid id);
         public bool DeleteTask(Guid id);
-        bool InsertTask(TodoTask task);
-        bool UpdateTask(TodoTask todoTask);
+        public bool InsertTask(InputTask task);
+        public bool UpdateTask(TodoTask task);
   }
 }

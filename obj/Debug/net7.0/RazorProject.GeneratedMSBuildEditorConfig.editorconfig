@@ -20,12 +20,20 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/tobiasroy/Projects/RazorProject/Pages/Finished.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRmluaXNoZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/tobiasroy/Projects/RazorProject/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/tobiasroy/Projects/RazorProject/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+[/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_AddTaskPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19BZGRUYXNrUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_EditTaskPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19FZGl0VGFza1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_ValidationScriptsPartial.cshtml]

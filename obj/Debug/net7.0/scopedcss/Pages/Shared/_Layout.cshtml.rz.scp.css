@@ -17,6 +17,10 @@ a[b-na99pfqrkr] {
   border-color: #1861ac;
 }
 
+.greyback[b-na99pfqrkr]{
+  background-color: rgb(243, 243, 243)!important;
+}
+
 .nav-pills .nav-link.active[b-na99pfqrkr], .nav-pills .show > .nav-link[b-na99pfqrkr] {
   color: #fff;
   background-color: #1b6ec2;
@@ -44,5 +48,4 @@ button.accept-policy[b-na99pfqrkr] {
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px;
 }

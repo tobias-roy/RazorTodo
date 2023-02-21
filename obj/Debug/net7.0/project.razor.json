@@ -18645,8 +18645,8 @@
   "RootNamespace": "RazorProject",
   "Documents": [
     {
-      "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Privacy.cshtml",
-      "TargetPath": "Pages\\Privacy.cshtml",
+      "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_EditTaskPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_EditTaskPartial.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -18665,6 +18665,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_AddTaskPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_AddTaskPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Error.cshtml",
       "TargetPath": "Pages\\Error.cshtml",
       "FileKind": "mvc"
@@ -18677,6 +18682,11 @@
     {
       "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Finished.cshtml",
+      "TargetPath": "Pages\\Finished.cshtml",
       "FileKind": "mvc"
     }
   ],
