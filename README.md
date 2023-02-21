@@ -33,14 +33,14 @@ Connect to the database via your prefered interface, use the info:
 <br>
 Run the following query to create the database:
 
-```
+```sql
   CREATE DATABASE TodoDb;
   CREATE TABLE Task (Id UNIQUEIDENTIFIER PRIMARY KEY, CreatedTime DATETIME, Description VARCHAR(25), Priority SMALLINT, Completed SMALLINT);
 ```
 
-With this command it's possible to connect to the database with the following connection string:
+With this command it's possible to connect and use the database correctly with the following connection string:
 
-```
+```c#
 SqlConnectionStringBuilder sb = new(){
   DataSource = "localhost",
   InitialCatalog = "TodoDb",
