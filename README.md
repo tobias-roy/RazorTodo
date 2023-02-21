@@ -3,7 +3,11 @@ RazorTodo is a school project with focus on building a todo list application usi
 Reference: [Razor Documentation](https://learn.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-7.0&tabs=visual-studio)
 ## Dependencies
 #### Packages
-Make sure you are using [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient) Version 4.8.5 or newer.
+Make sure you are using [System.Data.SqlClient](https://www.nuget.org/packages/System.Data.SqlClient) Version 4.8.5 or newer. <br>
+Navigate to the project folder and run the following command:
+```
+dotnet add package System.Data.SqlClient --version 4.8.5
+```
 #### Docker
 This project is using [Docker](https://www.docker.com/). To install docker desktop follow the guide for your operating system below. <br>
 [MacOS](https://docs.docker.com/desktop/install/mac-install/) 
