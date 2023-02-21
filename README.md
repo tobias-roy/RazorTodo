@@ -68,5 +68,5 @@ Don't
 ```
 
 ## Future development
-#### Error handling
-Currently version 1.0 does not support any special error handling - This is planned for the next release
+#### Error handling on submit
+Currently version 1.2 only supports errorhandling on main page loads - We plan to expand this to also handle a faulty connection on a task submit, edit or delete.
