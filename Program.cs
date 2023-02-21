@@ -19,7 +19,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-    app.UseExceptionHandler("/Error");
+// app.UseExceptionHandler("/Error");
+// app.UseStatusCodePagesWithRedirects("/Error");
 
 
 app.UseHttpsRedirection();

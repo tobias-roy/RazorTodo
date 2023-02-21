@@ -67,4 +67,8 @@ public class IndexModel : PageModel
             ViewData = new ViewDataDictionary<TodoTask>(ViewData, task)
         };
     }
+
+    public bool CheckConnection(){
+        return _uiRepository.CheckConnection();
+    }
 }

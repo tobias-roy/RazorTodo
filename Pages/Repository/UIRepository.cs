@@ -7,9 +7,11 @@ namespace RazorProject.Pages.Repository
     {
         private readonly ITaskListController _taskListController;
         private readonly ISingleTaskController _singleTaskController;
-        public UIRepository(ITaskListController taskListController, ISingleTaskController singleTaskController){
+        private readonly IConnectionController _connectionController;
+        public UIRepository(ITaskListController taskListController, ISingleTaskController singleTaskController, IConnectionController connectionController){
             _taskListController = taskListController;
             _singleTaskController = singleTaskController;
+            _connectionController = connectionController;
         }
 
     public List<TodoTask> GetUnfinishedTasks()
@@ -58,6 +60,10 @@ namespace RazorProject.Pages.Repository
     {
       _singleTaskController.UpdateTask(task);
       return true;
+    }
+
+    public bool CheckConnection(){
+      return _connectionController.CheckConnection();
     }
   }
 }

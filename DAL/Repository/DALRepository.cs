@@ -125,5 +125,9 @@ namespace RazorProject.DAL.Repository
         }
         return true;
     }
+
+    public bool CheckConnection(){
+        return Database.CheckConnection();
+    }
   }
 }

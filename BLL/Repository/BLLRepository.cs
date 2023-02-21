@@ -67,5 +67,10 @@ namespace RazorProject.BLL.Repository
       _dALRepository.UpdateTask(taskMapper(todoTask));
       return true;
     }
+
+    public bool CheckConnection(){
+      return _dALRepository.CheckConnection();
+    }
+    
   }
 }
