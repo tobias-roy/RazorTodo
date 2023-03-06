@@ -6,7 +6,7 @@ namespace RazorProject.DAL
     {
         private static string connectionString(){
             SqlConnectionStringBuilder sb = new(){
-                DataSource = "localhost",
+                DataSource = "localhost,1433",
                 InitialCatalog = "TodoDb",
                 UserID = "SA",
                 Password = "P@ssw0rd"
