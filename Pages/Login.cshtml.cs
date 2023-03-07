@@ -7,12 +7,12 @@ using RazorProject.Pages.Repository;
 
 namespace RazorProject.Pages;
 
-public class IndexModel : PageModel
+public class LoginModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly IUIRepository _uiRepository;
 
-    public IndexModel(ILogger<IndexModel> logger, ITaskListController taskListController, IUIRepository uiRepository) {
+    public LoginModel(ILogger<IndexModel> logger, ITaskListController taskListController, IUIRepository uiRepository) {
         _logger = logger;
         _uiRepository = uiRepository;
     }
