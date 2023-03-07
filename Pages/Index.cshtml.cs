@@ -9,6 +9,7 @@ namespace RazorProject.Pages;
 
 public class IndexModel : PageModel
 {
+    public bool LoggedInStatus {get;set;}
     private readonly ILogger<IndexModel> _logger;
     private readonly IUIRepository _uiRepository;
 
@@ -18,6 +19,11 @@ public class IndexModel : PageModel
     }
 
     public void OnGet() {
+        if(string.IsNullOrEmpty(HttpContext.Session.GetString("_LoggedIn"))){
+            LoggedInStatus = false;
+        } else {
+            LoggedInStatus = true;
+        }
     }
 
     public List<TodoTask> GetUnfinishedTasks () {
@@ -52,6 +58,32 @@ public class IndexModel : PageModel
         return new PartialViewResult{
             ViewName = "_RegisterUserPartial",
             ViewData = new ViewDataDictionary<UserCredentials>(ViewData, user)
+        };
+    }
+
+    public PartialViewResult OnGetLoginUserPartial(){
+        return new PartialViewResult{
+            ViewName = "_LoginUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, new UserCredentials{})
+        };
+    }
+
+    public PartialViewResult OnPostAttemptLoginUserPartial(UserCredentials user){
+        var status = 401;
+        if(ModelState.IsValid){
+            if(_uiRepository.Login(user)){
+                HttpContext.Session.SetString("_LoggedIn", $"{user.Username}");
+                status = 200;
+            } else {
+                HttpContext.Session.SetString("_LoggedIn", "");
+                status = 400;
+            }
+        }
+
+        return new PartialViewResult{
+            ViewName = "_LoginUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, user),
+            StatusCode = status
         };
     }
 

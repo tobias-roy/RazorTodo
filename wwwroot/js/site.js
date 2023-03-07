@@ -38,6 +38,8 @@ $(function () {
           placeholderElement.find('.modal').modal('hide');
           location.reload();
       }
+    }).fail(function(){
+      $("#validationErrorMessage").show();
     });
   });
 

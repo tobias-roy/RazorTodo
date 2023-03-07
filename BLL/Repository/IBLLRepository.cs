@@ -13,5 +13,6 @@ namespace RazorProject.BLL.Repository
     public bool UpdateTask(TodoTask todoTask);
     public bool CheckConnection();
     public void CreateNewUser(UserCredentials bllUser);
+    public bool Login(UserCredentials bllUser);
   }
 }

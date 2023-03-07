@@ -8,28 +8,28 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-
-                <h5 class="modal-title" id="addUser">Register new user</h5>
+                <h5 class="modal-title" id="addUser">Login</h5>
                 <button type="button" class="button-85" data-dismiss="modal" aria-label="Close">
                     x
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-page-handler="RegisterNewUserPartial">
+                <form asp-page-handler="AttemptLoginUserPartial">
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <div class="form-group mb-3">
                         <label asp-for="Username">Username</label>
                         <input asp-for="Username" class="form-control" />
                         <span asp-validation-for="Username" class="text-danger"></span>
                         <label asp-for="Password">Password</label>
-                        <input type="password" asp-for="Password" class="form-control" id="txtPassword" />
+                        <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
+                        <span id="validationErrorMessage" class="text-danger" style="display: none">ERR</span>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary button-85" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary button-85" data-save="modal">Register</button>
+                <button type="button" class="btn btn-primary button-85" data-save="modal">Login</button>
             </div>
         </div>
     </div>

@@ -5,10 +5,10 @@ namespace RazorProject.Pages.Models
 {
   public class UserCredentials
     {
-      [Required][MaxLength(12)]
+      [Required, MinLength(3), MaxLength(12)]
       public String Username { get; set; }
       
-      [Required][MaxLength(25)]
+      [Required, MinLength(5), MaxLength(25)]
       public String Password { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace RazorProject
   public static class ServicesExtensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services){
+            services.AddHttpContextAccessor();
             services.AddSingleton<IDALRepository, DALRepository>();
             services.AddSingleton<IBLLRepository, BLLRepository>();
             services.AddSingleton<IUIRepository, UIRepository>();

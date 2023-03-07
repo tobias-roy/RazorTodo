@@ -72,5 +72,10 @@ namespace RazorProject.Pages.Repository
     {
       _userController.CreateNewUser(user);
     }
+
+    public bool Login(UserCredentials user)
+    {
+      return _userController.Login(user);
+    }
   }
 }

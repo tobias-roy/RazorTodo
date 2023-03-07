@@ -1,9 +1,9 @@
 using RazorProject.DAL.Models;
+
 namespace RazorProject.DAL.Repository
 {
   public class DALRepository : IDALRepository
   {
-
     public bool InsertTask(TodoTask task)
     {
       Guid newId = Guid.NewGuid();
@@ -159,8 +159,26 @@ namespace RazorProject.DAL.Repository
         EXEC dbo.addNewUser
           @pUserName = N'{bllUser.Username}',
           @pPassword = N'{bllUser.Password}',
-          @responseMessage=@responseMessage OUTPUT";
-        command.ExecuteNonQuery();
+          @responseMessage=@responseMessage OUTPUT
+          SELECT  @responseMessage as N'@responseMessage'";
+        string response = (string)command.ExecuteScalar();
+        
+      }
+    }
+
+    public bool Login(BLL.Models.UserCredentials bllUser)
+    {
+      using (var connection = Database.getConnection())
+      {
+        var command = connection.CreateCommand();
+        command.CommandText = @$"DECLARE @responseMessage nvarchar(250)
+        EXEC    dbo.uspLogin
+        @pUsername = N'{bllUser.Username}',
+        @pPassword = N'{bllUser.Password}',
+        @responseMessage = @responseMessage OUTPUT
+        SELECT  @responseMessage as N'@responseMessage'";
+        Boolean.TryParse((string)command.ExecuteScalar(), out bool result);
+        return result;
       }
     }
   }

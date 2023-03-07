@@ -13,5 +13,6 @@ namespace RazorProject.Pages.Repository
         public bool UpdateTask(TodoTask task);
         public bool CheckConnection();
         public void RegisterNewUser(UserCredentials user);
+        public bool Login(UserCredentials user);
   }
 }

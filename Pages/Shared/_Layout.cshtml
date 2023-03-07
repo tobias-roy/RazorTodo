@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _httpContext
+@{
+    string loggedInStatusString = _httpContext.HttpContext.Session.GetString("_LoggedIn");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,16 +23,18 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Unfinished</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Finished">Finished</a>
-                        </li>
-                    </ul>
-            <button type="submit" id="btnRegisterUser" data-toggle="ajax-modal" data-url="@Url.Page("Index", "RegisterUserPartial")" class="button-85">Register user</button>
-
+                        <ul class="navbar-nav flex-grow-1">
+                            @if(!string.IsNullOrEmpty(loggedInStatusString)){
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Index">Unfinished</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Finished">Finished</a>
+                                </li>
+                            }
+                        </ul>
+                    <button type="submit" id="btnLogin" data-toggle="ajax-modal" data-url="@Url.Page("Index", "LoginUserPartial")" class="button-85" style="margin-right: 10px;">Login</button>
+                    <button type="submit" id="btnRegisterUser" data-toggle="ajax-modal" data-url="@Url.Page("Index", "RegisterUserPartial")" class="button-85">Register user</button>
                 </div>
             </div>
         </nav>
