@@ -13,6 +13,6 @@ namespace RazorProject.DAL.Repository
         public bool DeleteTask(Guid id);
         public bool UpdateTask(TodoTask todoTask);
         public bool CheckConnection();
-
+    void CreateNewUser(BLL.Models.UserCredentials bllUser);
   }
 }

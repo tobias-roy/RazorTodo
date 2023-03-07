@@ -7,6 +7,8 @@ builder.Services.AddRazorPages()
     .AddRazorPagesOptions(options => {
         options.Conventions.AddPageRoute("/index", "{*urls}");
     });
+
+
 builder.Services.RegisterServices();
 
 var app = builder.Build();
@@ -23,7 +25,7 @@ if (!app.Environment.IsDevelopment())
 // app.UseStatusCodePagesWithRedirects("/Error");
 
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

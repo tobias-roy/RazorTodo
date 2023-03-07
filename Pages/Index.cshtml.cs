@@ -37,6 +37,24 @@ public class IndexModel : PageModel
         };
     }
 
+    public PartialViewResult OnGetRegisterUserPartial(){
+        return new PartialViewResult{
+            ViewName = "_RegisterUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, new UserCredentials{})
+        };
+    }
+
+    public PartialViewResult OnPostRegisterNewUserPartial(UserCredentials user){
+        if(ModelState.IsValid){
+            _uiRepository.RegisterNewUser(user);
+        }
+
+        return new PartialViewResult{
+            ViewName = "_RegisterUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, user)
+        };
+    }
+
     public PartialViewResult OnPostTaskInputPartial(InputTask task){
         if(ModelState.IsValid){
             _uiRepository.InsertTask(task);

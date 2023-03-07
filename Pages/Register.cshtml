@@ -1,0 +1,17 @@
+﻿@page 
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register User";
+}
+@if(Model.CheckConnection()){
+    <form class="registerContainer" method="post" asp-page-handler="RegisterUser" class="form-inline text-center">
+        @* <input type="text" id="username" value="@ViewData.Model.Username">
+        <input type="password" id="password" value="@ViewData.Model.Password"> *@
+        <button type="submit" id="btnRegisterUser" class="button-85">Add task</button>
+    </form>
+} else {
+    <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
+    <div class="row">
+        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_1e0yPa.json" class="w-75 mx-auto"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
+    </div>
+}

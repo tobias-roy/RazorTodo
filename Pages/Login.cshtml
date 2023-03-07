@@ -1,0 +1,19 @@
+﻿@page 
+@model LoginModel
+@{
+    ViewData["Title"] = "Unfinished tasks";
+}
+@if(Model.CheckConnection()){
+    <form>
+        <div class="formContainer">
+            <input type="text" id="username">
+            <input type="password" id="password">
+            <button onclick="post">Click to log in</button>
+        </div>
+    </form>
+} else {
+    <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
+    <div class="row">
+        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_1e0yPa.json" class="w-75 mx-auto"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
+    </div>
+}

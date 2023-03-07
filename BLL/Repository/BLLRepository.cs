@@ -71,6 +71,10 @@ namespace RazorProject.BLL.Repository
     public bool CheckConnection(){
       return _dALRepository.CheckConnection();
     }
-    
+
+    public void CreateNewUser(UserCredentials bllUser)
+    {
+      _dALRepository.CreateNewUser(bllUser);
+    }
   }
 }

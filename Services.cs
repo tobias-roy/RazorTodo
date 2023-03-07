@@ -14,6 +14,7 @@ namespace RazorProject
             services.AddSingleton<ITaskListController, TaskListController>();
             services.AddSingleton<ISingleTaskController, SingleTaskController>();
             services.AddSingleton<IConnectionController, ConnectionController>();
+            services.AddSingleton<IUserController, UserController>();
             return services;
         }    
     }
