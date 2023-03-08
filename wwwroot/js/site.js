@@ -13,6 +13,16 @@ $(function () {
       });
   });
 
+  $('#btnLogout').click(function () {
+    $.ajax({
+      url: '@Url.Action("Logout", "Index")',
+      type: 'POST',
+      succes: function (data) {
+        location.reload()
+      }
+    })
+  })
+ 
   $('button[data-toggle="ajax-edit-modal"]').click(function (event) {
     var url = $(this).data('url');
     var data = {id: this.id};  
@@ -40,6 +50,7 @@ $(function () {
       }
     }).fail(function(){
       $("#validationErrorMessage").show();
+      $("#registrationErrorMessage").show();
     });
   });
 

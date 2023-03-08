@@ -4,8 +4,8 @@ namespace RazorProject.DAL.Repository
 {
   public interface IDALRepository
   {
-    public List<TodoTask> GetUnfinishedTasks();
-    public List<TodoTask> GetFinishedTasks();
+    public List<TodoTask> GetUnfinishedTasks(string Username);
+    public List<TodoTask> GetFinishedTasks(string Username);
     public TodoTask GetTaskById(Guid id);
     public bool MarkTaskAsFinished(Guid id);
     public bool MarkTaskAsUnFinished(Guid id);
@@ -13,7 +13,7 @@ namespace RazorProject.DAL.Repository
     public bool DeleteTask(Guid id);
     public bool UpdateTask(TodoTask todoTask);
     public bool CheckConnection();
-    public void CreateNewUser(BLL.Models.UserCredentials bllUser);
+    public bool CreateNewUser(BLL.Models.UserCredentials bllUser);
     public bool Login(BLL.Models.UserCredentials bllUser);
   }
 }

@@ -33,8 +33,14 @@
                                 </li>
                             }
                         </ul>
-                    <button type="submit" id="btnLogin" data-toggle="ajax-modal" data-url="@Url.Page("Index", "LoginUserPartial")" class="button-85" style="margin-right: 10px;">Login</button>
-                    <button type="submit" id="btnRegisterUser" data-toggle="ajax-modal" data-url="@Url.Page("Index", "RegisterUserPartial")" class="button-85">Register user</button>
+                        @if(string.IsNullOrEmpty(loggedInStatusString)){
+                            <button type="submit" id="btnLogin" data-toggle="ajax-modal" data-url="@Url.Page("Index", "LoginUserPartial")" class="button-85" style="margin-right: 10px;">Login</button>
+                            <button type="submit" id="btnRegisterUser" data-toggle="ajax-modal" data-url="@Url.Page("Index", "RegisterUserPartial")" class="button-85">Register user</button>
+                        } else {
+                            <form method="post" asp-page-handler="Logout" class="form-inline text-center">
+                                <button type="submit" id="btnLogout" class="button-85">Logout</button>
+                            </form>
+                        }
                 </div>
             </div>
         </nav>

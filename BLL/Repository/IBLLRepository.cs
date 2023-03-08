@@ -3,8 +3,8 @@ namespace RazorProject.BLL.Repository
 {
   public interface IBLLRepository
   {
-    public List<TodoTask> GetUnfinishedTasks();
-    public List<TodoTask> GetFinishedTasks();
+    public List<TodoTask> GetUnfinishedTasks(string Username);
+    public List<TodoTask> GetFinishedTasks(string Username);
     public TodoTask GetTaskById(Guid id);
     public bool MarkTaskAsFinished(Guid id);
     public bool MarkTaskAsUnFinished(Guid id);
@@ -12,7 +12,7 @@ namespace RazorProject.BLL.Repository
     public bool InsertTask(TodoTask task);
     public bool UpdateTask(TodoTask todoTask);
     public bool CheckConnection();
-    public void CreateNewUser(UserCredentials bllUser);
+    public bool CreateNewUser(UserCredentials bllUser);
     public bool Login(UserCredentials bllUser);
   }
 }

@@ -17,17 +17,18 @@ namespace RazorProject.BLL.Repository
       dalTask.Description = bllTask.Description;
       dalTask.Priority = bllTask.Priority;
       dalTask.Completed = bllTask.Completed;
+      dalTask.Username = bllTask.Username;
       return dalTask;
     }
-    public List<TodoTask> GetUnfinishedTasks()
+    public List<TodoTask> GetUnfinishedTasks(string Username)
     {
-      var dalList = _dALRepository.GetUnfinishedTasks();
+      var dalList = _dALRepository.GetUnfinishedTasks(Username);
       return dalList.Select(o => new TodoTask(o)).ToList();
     }
 
-    public List<TodoTask> GetFinishedTasks()
+    public List<TodoTask> GetFinishedTasks(string Username)
     {
-      var dalList = _dALRepository.GetFinishedTasks();
+      var dalList = _dALRepository.GetFinishedTasks(Username);
       return dalList.Select(o => new TodoTask(o)).ToList();
     }
 
@@ -40,6 +41,7 @@ namespace RazorProject.BLL.Repository
       task.Id = daltask.Id;
       task.Priority = daltask.Priority;
       task.Completed = daltask.Completed;
+      task.Username = daltask.Username;
       return task;
     }
 
@@ -78,9 +80,9 @@ namespace RazorProject.BLL.Repository
       return _dALRepository.CheckConnection();
     }
 
-    public void CreateNewUser(UserCredentials bllUser)
+    public bool CreateNewUser(UserCredentials bllUser)
     {
-      _dALRepository.CreateNewUser(bllUser);
+      return _dALRepository.CreateNewUser(bllUser);
     }
 
     public bool Login(UserCredentials bllUser)

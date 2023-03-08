@@ -16,14 +16,14 @@ namespace RazorProject.Pages.Repository
             _userController = userController;
         }
 
-    public List<TodoTask> GetUnfinishedTasks()
+    public List<TodoTask> GetUnfinishedTasks(string Username)
     {
-        var bllList = _taskListController.GetUnfinishedTasks();
+        var bllList = _taskListController.GetUnfinishedTasks(Username);
         return bllList.Select(o => new TodoTask(o)).ToList();
     }
-    public List<TodoTask> GetFinishedTasks()
+    public List<TodoTask> GetFinishedTasks(string Username)
     {
-        var bllList = _taskListController.GetFinishedTasks();
+        var bllList = _taskListController.GetFinishedTasks(Username);
         return bllList.Select(o => new TodoTask(o)).ToList();
     }
 
@@ -31,6 +31,7 @@ namespace RazorProject.Pages.Repository
       TodoTask uiTask = new(){
         Description = task.Description,
         Priority = task.Priority,
+        Username = task.Username
       };
       _taskListController.InsertTask(uiTask);
       return true;
@@ -68,9 +69,9 @@ namespace RazorProject.Pages.Repository
       return _connectionController.CheckConnection();
     }
 
-    public void RegisterNewUser(UserCredentials user)
+    public bool RegisterNewUser(UserCredentials user)
     {
-      _userController.CreateNewUser(user);
+      return _userController.CreateNewUser(user);
     }
 
     public bool Login(UserCredentials user)

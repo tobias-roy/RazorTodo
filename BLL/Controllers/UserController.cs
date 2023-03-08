@@ -13,12 +13,12 @@ namespace RazorProject.BLL.Controllers
     }
 
 
-    public void CreateNewUser(Pages.Models.UserCredentials user)
+    public bool CreateNewUser(Pages.Models.UserCredentials user)
     {
       BLL.Models.UserCredentials bllUser = new();
       bllUser.Username = user.Username;
       bllUser.Password = user.Password;
-      _bLLRepository.CreateNewUser(bllUser);
+      return _bLLRepository.CreateNewUser(bllUser);
     }
 
     public bool Login(UserCredentials user)

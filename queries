@@ -1,0 +1,192 @@
+-- Create users table in database
+CREATE TABLE Users (
+    UserID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Username VARCHAR(12) NOT NULL,
+    PasswordHash BINARY(64) NOT NULL,
+    Salt UNIQUEIDENTIFIER NOT NULL,
+)
+
+CREATE TABLE Todos (
+    TodoID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Description VARCHAR(30) NOT NULL,
+    TimeCreated DATETIME NOT NULL,
+    Priority SMALLINT NOT NULL,
+    Completed VARCHAR(5) NOT NULL,
+    UserID UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Users(UserID)
+)
+
+
+-- Stored procedure for registering a new user in the database.
+CREATE PROCEDURE uspRegisterNewUser
+    @pUserName VARCHAR(12),
+    @pPassword VARCHAR(25),
+    @responseMessage VARCHAR(5) OUTPUT AS BEGIN
+    SET NOCOUNT ON
+        DECLARE @userid UNIQUEIDENTIFIER=NEWID()
+        DECLARE @salt UNIQUEIDENTIFIER=NEWID()
+    IF NOT EXISTS (SELECT 1 FROM Users WHERE Username = @pUserName)
+    BEGIN TRY
+            INSERT INTO Users (UserID, Username, PasswordHash, Salt)
+            VALUES(@userid, @pUsername, HASHBYTES('SHA2_512', @pPassword+CAST(@salt AS VARCHAR(36))), @salt)
+        SET @responseMessage = 'true'
+        END TRY BEGIN CATCH
+        SET
+            @responseMessage = 'false'
+        END CATCH
+    END
+
+
+-- Stored procedure for login
+CREATE PROCEDURE uspUserLogin
+    @pUserName VARCHAR(12),
+    @pPassword VARCHAR(25),
+    @responseMessage VARCHAR(5)='' OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON
+    DECLARE @userID UNIQUEIDENTIFIER
+    IF EXISTS (SELECT TOP 1 UserID FROM [dbo].[Users] WHERE Username=@pUserName)
+    BEGIN
+        SET @userID=(SELECT UserID FROM [dbo].[Users] WHERE Username=@pUserName AND PasswordHash=HASHBYTES('SHA2_512', @pPassword+CAST(Salt AS VARCHAR(36))))
+       IF(@userID IS NULL)
+           SET @responseMessage='false'
+       ELSE 
+           SET @responseMessage='true'
+    END
+    ELSE
+       SET @responseMessage='false'
+END
+
+
+-- Stored procedure for creating a task
+CREATE PROCEDURE uspCreateTask
+    @pDescription VARCHAR(30),
+    @pPriority SMALLINT,
+    @pUsername VARCHAR(12),
+    @responseMessage VARCHAR(5)='' OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON
+    DECLARE @SessionUserID UNIQUEIDENTIFIER
+    BEGIN TRY
+        SET @SessionUserID = (SELECT UserID FROM [dbo].[Users] WHERE Username = @pUsername)
+        INSERT INTO  Todos(TodoID, Description, TimeCreated, Priority, Completed, UserID)
+        VALUES (NEWID(), @pDescription,  GETDATE(), @pPriority, 'false', @SessionUserID)
+        SET @responseMessage = 'true'
+    END TRY BEGIN CATCH
+    SET
+        @responseMessage = 'false'
+    END CATCH
+END
+
+
+-- Stored procedure for marking a task as finished
+CREATE PROCEDURE uspMarkTodoAsDone
+    @pTodoID UNIQUEIDENTIFIER,
+    @responseMessage VARCHAR(5)='' OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON
+    BEGIN TRY
+        UPDATE Todos SET Completed = 'true' WHERE TodoID = @pTodoID
+        SET @responseMessage = 'true'
+    END TRY BEGIN CATCH
+    SET
+        @responseMessage = 'false'
+    END CATCH
+END
+
+-- Stored procedure for marking a task as unfinished
+CREATE PROCEDURE uspMarkTodoAsUndone
+    @pTodoID UNIQUEIDENTIFIER,
+    @responseMessage VARCHAR(5)='' OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON
+    BEGIN TRY
+        UPDATE Todos SET Completed = 'false' WHERE TodoID = @pTodoID
+        SET @responseMessage = 'true'
+    END TRY BEGIN CATCH
+    SET
+        @responseMessage = 'false'
+    END CATCH
+END
+
+
+-- Stored procedure for getting unfinished tasks
+CREATE PROCEDURE uspGetUnfinishedTodos
+    @pUsername VARCHAR(12)
+AS
+BEGIN
+    DECLARE @SessionUserID UNIQUEIDENTIFIER
+    SET NOCOUNT ON
+    SET @SessionUserID = (SELECT UserID FROM [dbo].[Users] WHERE Username = @pUsername)
+    SELECT * FROM Todos WHERE Completed = 'false' AND UserID = @SessionUserID ORDER BY TimeCreated DESC
+END
+
+
+-- Stored procedure for getting finished tasks
+CREATE PROCEDURE uspGetFinishedTodos
+    @pUsername VARCHAR(12)
+AS
+BEGIN
+    DECLARE @SessionUserID UNIQUEIDENTIFIER
+    SET NOCOUNT ON
+    SET @SessionUserID = (SELECT UserID FROM [dbo].[Users] WHERE Username = @pUsername)
+    SELECT * FROM Todos WHERE Completed = 'true' AND UserID = @SessionUserID ORDER BY TimeCreated DESC
+END
+
+
+-- Stored procedure for deleting a specific task
+CREATE PROCEDURE uspDeleteFinishedTodoItem
+    @pTodoID UNIQUEIDENTIFIER,
+    @responseMessage VARCHAR(5)='' OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON
+    BEGIN TRY
+        DELETE FROM Todos WHERE TodoID = @pTodoID
+        SET @responseMessage = 'true'
+    END TRY BEGIN CATCH
+    SET
+        @responseMessage = 'false'
+    END CATCH
+END
+
+
+
+
+-- TESTING SECTION
+-- TESTING SECTION
+-- TESTING SECTION
+-- 
+-- For testing the stored procedure registerNewUser
+DECLARE @responseMessage VARCHAR(5)
+EXEC registerNewUser
+          @pUserName = N'Testuser',
+          @pPassword = N'test123',
+          @responseMessage=@responseMessage OUTPUT
+
+SELECT * FROM Users
+
+
+-- For testing the login procedure
+DECLARE @responseMessage nvarchar(250)
+--Correct login and password
+EXEC    userLogin
+        @pUsername = N'Testuser',
+        @pPassword = N'test123',
+        @responseMessage = @responseMessage OUTPUT
+SELECT  @responseMessage as N'@responseMessage'
+--Incorrect login
+EXEC    userLogin
+        @pUsername = N'Badtest', 
+        @pPassword = N'123',
+        @responseMessage = @responseMessage OUTPUT
+SELECT  @responseMessage as N'@responseMessage'
+--Incorrect password
+EXEC    userLogin
+        @pUsername = N'Testuser', 
+        @pPassword = N'1234',
+        @responseMessage = @responseMessage OUTPUT
+SELECT  @responseMessage as N'@responseMessage'

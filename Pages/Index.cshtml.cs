@@ -26,14 +26,19 @@ public class IndexModel : PageModel
         }
     }
 
-    public List<TodoTask> GetUnfinishedTasks () {
-        var listOfTasks = _uiRepository.GetUnfinishedTasks();
+    public List<TodoTask> GetUnfinishedTasks (string Username) {
+        var listOfTasks = _uiRepository.GetUnfinishedTasks(Username);
         return listOfTasks;
     }
 
     public IActionResult OnPostMarkAsFinished(Guid id){
         _uiRepository.MarkTaskAsFinished(id);
         return Page();
+    }
+
+     public IActionResult OnPostLogout(){
+        HttpContext.Session.SetString("_LoggedIn", "");
+        return RedirectToPage("Index");
     }
 
     public PartialViewResult OnGetAddTaskPartial(){
@@ -51,13 +56,19 @@ public class IndexModel : PageModel
     }
 
     public PartialViewResult OnPostRegisterNewUserPartial(UserCredentials user){
+        var status = 401;
         if(ModelState.IsValid){
-            _uiRepository.RegisterNewUser(user);
+            if(_uiRepository.RegisterNewUser(user)){
+                status = 200;
+            } else {
+                status = 400;
+            }
         }
 
         return new PartialViewResult{
             ViewName = "_RegisterUserPartial",
-            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, user)
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, user),
+            StatusCode = status
         };
     }
 

@@ -9,6 +9,7 @@ namespace RazorProject.BLL.Models
         public String Description { get; set; }
         public Priority Priority { get; set; }
         public Boolean Completed { get; set; }
+        public String Username { get; set; }
 
         public TodoTask (DAL.Models.TodoTask todoItem){
             Id = todoItem.Id;
@@ -16,6 +17,7 @@ namespace RazorProject.BLL.Models
             Description = todoItem.Description;
             Priority = todoItem.Priority;
             Completed = todoItem.Completed;
+            Username = todoItem.Username;
         }
         public TodoTask (){
         }

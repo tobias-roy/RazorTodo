@@ -1,26 +1,28 @@
 ﻿@page 
 @model IndexModel
+@inject IHttpContextAccessor _httpContext
 @{
-ViewData["Title"] = "Unfinished tasks";
+    string loggedInStatusString = _httpContext.HttpContext.Session.GetString("_LoggedIn");
+    ViewData["Title"] = "Unfinished tasks";
 }
 
 @if(Model.CheckConnection()){
     <div id="modal-placeholder"></div>
     <div class="container-md px-4 py-5">
-        @if(Model.GetUnfinishedTasks().Count == 0 && Model.LoggedInStatus == true){
+        @if(Model.GetUnfinishedTasks(loggedInStatusString).Count == 0 && !string.IsNullOrEmpty(loggedInStatusString)){
             <button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="button-85">Add task</button>
             <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
             <div class="row">
                 <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_7fCbvNSmFD.json" class="w-50 mx-auto"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
             </div>
-        } else if (Model.GetUnfinishedTasks().Count > 0 && Model.LoggedInStatus == true) {
+        } else if (Model.GetUnfinishedTasks(loggedInStatusString).Count > 0 && !string.IsNullOrEmpty(loggedInStatusString)) {
             <h1>@ViewData["Title"]</h1>
             <button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="button-85">Add task</button>
         }  else {
             <script src="https://unpkg.com/@@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
             <lottie-player class="w-50 mx-auto" src="https://assets2.lottiefiles.com/private_files/lf30_ISHFyg.json"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
         }
-        @foreach (var item in Model.GetUnfinishedTasks())
+        @foreach (var item in Model.GetUnfinishedTasks(loggedInStatusString))
         {
             <div class="container-sm p-3 w-50 undoneTask">
                 <div class="text-end">

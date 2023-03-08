@@ -1,11 +1,14 @@
 ﻿@page
 @model UnfinishedModel
+@inject IHttpContextAccessor _httpContext
 @{
+    string loggedInStatusString = _httpContext.HttpContext.Session.GetString("_LoggedIn");
     ViewData["Title"] = "Finished Tasks";
 }
+
 @if(Model.CheckConnection()){
     <div class="container px-4 py-5">
-        @if(Model.GetFinishedTasks().Count == 0){
+        @if(Model.GetFinishedTasks(loggedInStatusString).Count == 0){
             <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
             
             <div class="row text-center">
@@ -15,7 +18,7 @@
         } else {
             <h1>@ViewData["Title"]</h1>
         }
-        @foreach (var item in Model.GetFinishedTasks())
+        @foreach (var item in Model.GetFinishedTasks(loggedInStatusString))
         {
             <div class="container-sm p-3 w-50 undoneTask">
                 <div class="feature col text-center">

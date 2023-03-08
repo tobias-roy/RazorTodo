@@ -24,6 +24,7 @@
                         <label asp-for="Password">Password</label>
                         <input type="password" asp-for="Password" class="form-control" id="txtPassword" />
                         <span asp-validation-for="Password" class="text-danger"></span>
+                        <span id="registrationErrorMessage" class="text-danger" style="display: none">Registration failed</span>
                     </div>
                 </form>
             </div>
