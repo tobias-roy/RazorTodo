@@ -8,5 +8,6 @@ namespace RazorProject
       [Required][MaxLength(25)]
       public String Description { get; set; }
       public Priority Priority { get; set; } = Priority.Medium;
+      public String Username { get; set; }
     }
 }

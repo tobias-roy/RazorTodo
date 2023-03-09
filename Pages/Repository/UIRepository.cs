@@ -7,21 +7,23 @@ namespace RazorProject.Pages.Repository
     {
         private readonly ITaskListController _taskListController;
         private readonly ISingleTaskController _singleTaskController;
+        private readonly IUserController _userController;
         private readonly IConnectionController _connectionController;
-        public UIRepository(ITaskListController taskListController, ISingleTaskController singleTaskController, IConnectionController connectionController){
+        public UIRepository(ITaskListController taskListController, ISingleTaskController singleTaskController, IConnectionController connectionController, IUserController userController){
             _taskListController = taskListController;
             _singleTaskController = singleTaskController;
             _connectionController = connectionController;
+            _userController = userController;
         }
 
-    public List<TodoTask> GetUnfinishedTasks()
+    public List<TodoTask> GetUnfinishedTasks(string Username)
     {
-        var bllList = _taskListController.GetUnfinishedTasks();
+        var bllList = _taskListController.GetUnfinishedTasks(Username);
         return bllList.Select(o => new TodoTask(o)).ToList();
     }
-    public List<TodoTask> GetFinishedTasks()
+    public List<TodoTask> GetFinishedTasks(string Username)
     {
-        var bllList = _taskListController.GetFinishedTasks();
+        var bllList = _taskListController.GetFinishedTasks(Username);
         return bllList.Select(o => new TodoTask(o)).ToList();
     }
 
@@ -29,6 +31,7 @@ namespace RazorProject.Pages.Repository
       TodoTask uiTask = new(){
         Description = task.Description,
         Priority = task.Priority,
+        Username = task.Username
       };
       _taskListController.InsertTask(uiTask);
       return true;
@@ -64,6 +67,16 @@ namespace RazorProject.Pages.Repository
 
     public bool CheckConnection(){
       return _connectionController.CheckConnection();
+    }
+
+    public bool RegisterNewUser(UserCredentials user)
+    {
+      return _userController.CreateNewUser(user);
+    }
+
+    public bool Login(UserCredentials user)
+    {
+      return _userController.Login(user);
     }
   }
 }

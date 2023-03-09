@@ -9,6 +9,7 @@ namespace RazorProject.Pages;
 
 public class IndexModel : PageModel
 {
+    public bool LoggedInStatus {get;set;}
     private readonly ILogger<IndexModel> _logger;
     private readonly IUIRepository _uiRepository;
 
@@ -18,10 +19,15 @@ public class IndexModel : PageModel
     }
 
     public void OnGet() {
+        if(string.IsNullOrEmpty(HttpContext.Session.GetString("_LoggedIn"))){
+            LoggedInStatus = false;
+        } else {
+            LoggedInStatus = true;
+        }
     }
 
-    public List<TodoTask> GetUnfinishedTasks () {
-        var listOfTasks = _uiRepository.GetUnfinishedTasks();
+    public List<TodoTask> GetUnfinishedTasks (string Username) {
+        var listOfTasks = _uiRepository.GetUnfinishedTasks(Username);
         return listOfTasks;
     }
 
@@ -30,10 +36,65 @@ public class IndexModel : PageModel
         return Page();
     }
 
+     public IActionResult OnPostLogout(){
+        HttpContext.Session.SetString("_LoggedIn", "");
+        return RedirectToPage("Index");
+    }
+
     public PartialViewResult OnGetAddTaskPartial(){
         return new PartialViewResult{
             ViewName = "_AddTaskPartial",
             ViewData = new ViewDataDictionary<InputTask>(ViewData, new InputTask{})
+        };
+    }
+
+    public PartialViewResult OnGetRegisterUserPartial(){
+        return new PartialViewResult{
+            ViewName = "_RegisterUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, new UserCredentials{})
+        };
+    }
+
+    public PartialViewResult OnPostRegisterNewUserPartial(UserCredentials user){
+        var status = 401;
+        if(ModelState.IsValid){
+            if(_uiRepository.RegisterNewUser(user)){
+                status = 200;
+            } else {
+                status = 400;
+            }
+        }
+
+        return new PartialViewResult{
+            ViewName = "_RegisterUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, user),
+            StatusCode = status
+        };
+    }
+
+    public PartialViewResult OnGetLoginUserPartial(){
+        return new PartialViewResult{
+            ViewName = "_LoginUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, new UserCredentials{})
+        };
+    }
+
+    public PartialViewResult OnPostAttemptLoginUserPartial(UserCredentials user){
+        var status = 401;
+        if(ModelState.IsValid){
+            if(_uiRepository.Login(user)){
+                HttpContext.Session.SetString("_LoggedIn", $"{user.Username}");
+                status = 200;
+            } else {
+                HttpContext.Session.SetString("_LoggedIn", "");
+                status = 400;
+            }
+        }
+
+        return new PartialViewResult{
+            ViewName = "_LoginUserPartial",
+            ViewData = new ViewDataDictionary<UserCredentials>(ViewData, user),
+            StatusCode = status
         };
     }
 

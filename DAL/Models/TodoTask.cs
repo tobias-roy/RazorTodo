@@ -9,5 +9,6 @@ namespace RazorProject.DAL.Models
         public String Description { get; set; }
         public Priority Priority { get; set; }
         public Boolean Completed { get; set; }
+        public String Username { get; set; }
     }
 }

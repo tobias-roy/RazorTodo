@@ -1,0 +1,39 @@
+﻿@model RazorProject.Pages.Models.UserCredentials
+<!-- Modal -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<div class="modal fade" id="add-user" tabindex="-1" role="dialog" aria-labelledby="addUser" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="addUser">Register new user</h5>
+                <button type="button" class="button-85" data-dismiss="modal" aria-label="Close">
+                    x
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-page-handler="RegisterNewUserPartial">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <div class="form-group mb-3">
+                        <label asp-for="Username">Username</label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                        <label asp-for="Password">Password</label>
+                        <input type="password" asp-for="Password" class="form-control" id="txtPassword" />
+                        <label for="txtConfirmPassword">Confirm Password</label>
+                        <input type="password" class="form-control" id="txtConfirmPassword" oninput="checkMatch()"/>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span id="registrationErrorMessage" class="text-danger" style="display: none">Registration failed</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary button-85" data-dismiss="modal">Cancel</button>
+                <button id="btnRegister" type="button" class="btn btn-primary button-85" data-save="modal">Register</button>
+            </div>
+        </div>
+    </div>
+</div>

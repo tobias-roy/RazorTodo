@@ -13,6 +13,16 @@ $(function () {
       });
   });
 
+  $('#btnLogout').click(function () {
+    $.ajax({
+      url: '@Url.Action("Logout", "Index")',
+      type: 'POST',
+      succes: function (data) {
+        location.reload()
+      }
+    })
+  })
+ 
   $('button[data-toggle="ajax-edit-modal"]').click(function (event) {
     var url = $(this).data('url');
     var data = {id: this.id};  
@@ -38,6 +48,9 @@ $(function () {
           placeholderElement.find('.modal').modal('hide');
           location.reload();
       }
+    }).fail(function(){
+      $("#validationErrorMessage").show();
+      $("#registrationErrorMessage").show();
     });
   });
 
@@ -66,3 +79,18 @@ $(function () {
     location.reload();
   });
 });
+
+function checkMatch() {
+  var input = document.getElementById('txtConfirmPassword');
+  if (input.value != document.getElementById('txtPassword').value) {
+      input.setCustomValidity('Password Must be Matching.');
+      $('#btnRegister').hide();
+      document.getElementById('registrationErrorMessage').innerHTML = "Password does not match";
+      $("#registrationErrorMessage").show();
+  } else {
+      input.setCustomValidity('');
+      $('#btnRegister').show();
+      $('#registrationErrorMessage').hide();
+      document.getElementById('registrationErrorMessage').innerHTML = "Registration failed";
+  }
+}

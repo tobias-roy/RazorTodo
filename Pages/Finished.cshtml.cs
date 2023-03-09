@@ -19,8 +19,8 @@ public class UnfinishedModel : PageModel
     {
     }
 
-    public List<TodoTask> GetFinishedTasks () {
-        var listOfTasks = _uiRepository.GetFinishedTasks();
+    public List<TodoTask> GetFinishedTasks (string Username) {
+        var listOfTasks = _uiRepository.GetFinishedTasks(Username);
         return listOfTasks;
     }
 

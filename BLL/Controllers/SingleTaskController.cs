@@ -24,7 +24,8 @@ namespace RazorProject.BLL.Controllers
             BLL.Models.TodoTask task = new(){
             Description = uiTask.Description,
             Priority = uiTask.Priority,
-            Completed = uiTask.Completed
+            Completed = uiTask.Completed,
+            Username = uiTask.Username
         };
         _bLLRepository.InsertTask(task);
         return true;

@@ -18660,6 +18660,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_LoginUserPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_LoginUserPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
@@ -18675,8 +18680,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Shared/_RegisterUserPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_RegisterUserPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/_ViewStart.cshtml",
       "TargetPath": "Pages\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/tobiasroy/Projects/RazorProject/Pages/Register.cshtml",
+      "TargetPath": "Pages\\Register.cshtml",
       "FileKind": "mvc"
     },
     {

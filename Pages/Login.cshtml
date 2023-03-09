@@ -1,39 +1,16 @@
 ﻿@page 
-@model IndexModel
+@model LoginModel
 @{
     ViewData["Title"] = "Unfinished tasks";
 }
 @if(Model.CheckConnection()){
-    <div id="modal-placeholder"></div>
-    <div class="container-md px-4 py-5">
-        @if(Model.GetUnfinishedTasks().Count == 0){
-            <button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="button-85">Add task</button>
-            <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
-            <div class="row">
-                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_7fCbvNSmFD.json" class="w-50 mx-auto"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
-            </div>
-        } else {
-            <h1>@ViewData["Title"]</h1>
-            <button type="submit" id="btnAddTask" data-toggle="ajax-modal" data-url="@Url.Page("Index", "AddTaskPartial")" class="button-85">Add task</button>
-        }
-        @foreach (var item in Model.GetUnfinishedTasks())
-        {
-            <div class="container-sm p-3 w-50 undoneTask">
-                <div class="text-end">
-                    <button type="submit" id="@item.Id" class="button-85" data-toggle="ajax-edit-modal" data-url="@Url.Page("Index", "EditTaskPartial")">Edit</button>
-                </div>
-                <div id="@item.Id" class="feature col text-center">
-                    <h4 class="fs-2">@item.Description</h4>
-                    <p>Priority: @item.Priority</p>
-                    <p>Created: @item.CreatedTime</p>
-                </div>
-                <form method="post" asp-page-handler="MarkAsFinished" class="form-inline text-center">
-                    <input type="hidden" name="Id" value="@item.Id"/>
-                    <button type="submit" id="btnMarkAsDone" class="button-85">Mark task as done</button>
-                </form>
-            </div>
-        }
-    </div>
+    <form>
+        <div class="formContainer">
+            <input type="text" id="username">
+            <input type="password" id="password">
+            <button onclick="post">Click to log in</button>
+        </div>
+    </form>
 } else {
     <script src="https://unpkg.com/@@lottiefiles/lottie-player@@latest/dist/lottie-player.js"></script>
     <div class="row">

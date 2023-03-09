@@ -11,6 +11,7 @@ namespace RazorProject.Pages.Models
     public String Description { get; set; }
     public Priority Priority { get; set; }
     public Boolean Completed { get; set; }
+    public String Username { get; set; }
 
     public TodoTask (BLL.Models.TodoTask todoItem){
         Id = todoItem.Id;
@@ -18,6 +19,7 @@ namespace RazorProject.Pages.Models
         Description = todoItem.Description;
         Priority = todoItem.Priority;
         Completed = todoItem.Completed;
+        Username = todoItem.Username;
     }
 
     public TodoTask()
