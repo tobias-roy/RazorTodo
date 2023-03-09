@@ -47,7 +47,9 @@ BEGIN
     DECLARE @userID UNIQUEIDENTIFIER
     IF EXISTS (SELECT TOP 1 UserID FROM [dbo].[Users] WHERE Username=@pUserName)
     BEGIN
-        SET @userID=(SELECT UserID FROM [dbo].[Users] WHERE Username=@pUserName AND PasswordHash=HASHBYTES('SHA2_512', @pPassword+CAST(Salt AS VARCHAR(36))))
+        SET @userID=(SELECT UserID FROM [dbo].[Users]
+        WHERE Username=@pUserName
+        AND PasswordHash=HASHBYTES('SHA2_512', @pPassword+CAST(Salt AS VARCHAR(36))))
        IF(@userID IS NULL)
            SET @responseMessage='false'
        ELSE 
