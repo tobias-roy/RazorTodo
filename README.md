@@ -35,19 +35,19 @@ Connect to the database via your prefered interface, use the info:
 - User name: SA
 - Password: P@ssw0rd
 <br>
-Run the following query to create the database:
+Modify the path and container_id and run the following command to copy the database to the docker container:
 
 ```sql
-  CREATE DATABASE TodoDb;
-  CREATE TABLE Task (Id UNIQUEIDENTIFIER PRIMARY KEY, CreatedTime DATETIME, Description VARCHAR(25), Priority SMALLINT, Completed SMALLINT);
+  docker cp /path/Database-Restoration.bak container_id:/Database-Restoration.bak
 ```
+Using [Azure Data Studio](https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16&tabs=redhat-install%2Credhat-uninstall) or a similair software connect to your SQL Server (Docker container) and restore the Database-Restoration.bak database.
 
 With this command it's possible to connect and use the database correctly with the following connection string:
 
 ```c#
 SqlConnectionStringBuilder sb = new(){
   DataSource = "localhost",
-  InitialCatalog = "TodoDb",
+  InitialCatalog = "TodoDatabase",
   UserID = "SA",
   Password = "P@ssw0rd"
 };
