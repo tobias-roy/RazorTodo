@@ -8,9 +8,9 @@ CREATE TABLE Users (
 
 CREATE TABLE Todos (
     TodoID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Description VARCHAR(30) NOT NULL,
+    TodoDescription VARCHAR(30) NOT NULL,
     TimeCreated DATETIME NOT NULL,
-    Priority SMALLINT NOT NULL,
+    TodoPriority SMALLINT NOT NULL,
     Completed VARCHAR(5) NOT NULL,
     UserID UNIQUEIDENTIFIER FOREIGN KEY REFERENCES Users(UserID)
 )
@@ -60,8 +60,8 @@ END
 
 -- Stored procedure for creating a task
 CREATE PROCEDURE uspCreateTask
-    @pDescription VARCHAR(30),
-    @pPriority SMALLINT,
+    @pTodoDescription VARCHAR(30),
+    @pTodoPriority SMALLINT,
     @pUsername VARCHAR(12),
     @responseMessage VARCHAR(5)='' OUTPUT
 AS
@@ -70,8 +70,8 @@ BEGIN
     DECLARE @SessionUserID UNIQUEIDENTIFIER
     BEGIN TRY
         SET @SessionUserID = (SELECT UserID FROM [dbo].[Users] WHERE Username = @pUsername)
-        INSERT INTO  Todos(TodoID, Description, TimeCreated, Priority, Completed, UserID)
-        VALUES (NEWID(), @pDescription,  GETDATE(), @pPriority, 'false', @SessionUserID)
+        INSERT INTO  Todos(TodoID, TodoDescription, TimeCreated, TodoPriority, Completed, UserID)
+        VALUES (NEWID(), @pTodoDescription,  GETDATE(), @pTodoPriority, 'false', @SessionUserID)
         SET @responseMessage = 'true'
     END TRY BEGIN CATCH
     SET
@@ -154,6 +154,38 @@ BEGIN
 END
 
 
+-- Stored procedure for updating a todo 
+-- DOES NOT WORK!
+CREATE PROCEDURE uspUpdateTodo
+    @pInputID UNIQUEIDENTIFIER,
+    @pInputDescription VARCHAR(30),
+    @pInputPriority SMALLINT,
+    @responseMessage VARCHAR(5)='' OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON
+    BEGIN TRY
+        UPDATE [dbo].[Todos]
+        SET TodoDescription = @pInputDescription, TodoPriority = @pInputPriority
+        WHERE [dbo].[Todos].[TodoID] = @pInputID
+        SET @responseMessage = 'true'
+    END TRY BEGIN CATCH
+    SET
+        @responseMessage = 'false'
+    END CATCH
+END
+
+
+-- Stored Procedure for getting a single todo by id
+CREATE PROCEDURE uspFetchTodoById
+    @pTodoID UNIQUEIDENTIFIER
+AS
+BEGIN
+    SET NOCOUNT ON
+    BEGIN
+        SELECT * FROM Todos WHERE TodoID = @pTodoID
+    END
+END
 
 
 -- TESTING SECTION

@@ -4,39 +4,6 @@ namespace RazorProject.DAL.Repository
 {
   public class DALRepository : IDALRepository
   {
-    public TodoTask GetTaskById(Guid id)
-    {
-      TodoTask task = new();
-      using (var connection = Database.getConnection())
-      {
-        var command = connection.CreateCommand();
-        command.CommandText =
-        @$"SELECT * FROM Task WHERE Id = '{id}'";
-        var reader = command.ExecuteReader();
-        reader.Read();
-        task.Id = (Guid)reader.GetSqlGuid(0);
-        task.CreatedTime = reader.GetDateTime(1);
-        task.Description = reader.GetString(2);
-        task.Priority = (Definitions.Priority)reader.GetInt16(3);
-        task.Completed = false;
-      }
-      return task;
-    }
-
-    public bool UpdateTask(TodoTask todoTask)
-    {
-      using (var connection = Database.getConnection())
-      {
-        var command = connection.CreateCommand();
-        command.CommandText =
-        @$"UPDATE Task
-            SET Description = '{todoTask.Description}', Priority = '{(int)todoTask.Priority}'
-            WHERE Id = '{todoTask.Id}'";
-        command.ExecuteNonQuery();
-      }
-      return true;
-    }
-
     public bool CheckConnection()
     {
       return Database.CheckConnection();
@@ -81,8 +48,8 @@ namespace RazorProject.DAL.Repository
         var command = connection.CreateCommand();
         command.CommandText = @$"DECLARE @responseMessage nvarchar(5)
         EXEC    uspCreateTask
-        @pDescription = '{task.Description}',
-        @pPriority = '{(int)task.Priority}',
+        @pTodoDescription = '{task.Description}',
+        @pTodoPriority = '{(int)task.Priority}',
         @pUsername = '{task.Username}',
         @responseMessage = @responseMessage OUTPUT
         SELECT  @responseMessage as N'@responseMessage'";
@@ -175,11 +142,49 @@ namespace RazorProject.DAL.Repository
       {
         var command = connection.CreateCommand();
         command.CommandText = @$"DECLARE @responseMessage nvarchar(5)
-        EXEC uspDeleteFinishedTodoItem
+        EXEC uspDeleteFinishedTodo
         @pTodoID = '{id}',
         @responseMessage = @responseMessage OUTPUT
         SELECT  @responseMessage as '@responseMessage'";
         Boolean.TryParse((string)command.ExecuteScalar(), out bool result);
+        return result;
+      }
+    }
+
+    public TodoTask GetTaskById(Guid id)
+    {
+      TodoTask task = new();
+      using (var connection = Database.getConnection())
+      {
+        var command = connection.CreateCommand();
+        command.CommandText =
+        @$"EXEC uspFetchTodoById
+        @pTodoID = '{id}'";
+        var reader = command.ExecuteReader();
+        reader.Read();
+        task.Id = (Guid)reader.GetSqlGuid(0);
+        task.Description = reader.GetString(1);
+        task.CreatedTime = reader.GetDateTime(2);
+        task.Priority = (Definitions.Priority)reader.GetInt16(3);
+        task.Completed = Boolean.TryParse(reader.GetString(4), out bool result);
+      }
+      return task;
+    }
+
+    public bool UpdateTask(TodoTask todoTask)
+    {
+      using (var connection = Database.getConnection())
+      {
+        var command = connection.CreateCommand();
+        command.CommandText = @$"DECLARE @responseMessage nvarchar(5)
+        EXEC uspUpdateTodo
+        @pInputID = '{todoTask.Id}',
+        @pInputDescription = '{todoTask.Description}',
+        @pInputPriority = {(int)todoTask.Priority},
+        @responseMessage = @responseMessage OUTPUT
+        SELECT  @responseMessage as '@responseMessage'";
+        Boolean.TryParse((string)command.ExecuteScalar(), out bool result);
+        System.Diagnostics.Debug.WriteLine(result);
         return result;
       }
     }
