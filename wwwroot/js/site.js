@@ -79,3 +79,18 @@ $(function () {
     location.reload();
   });
 });
+
+function checkMatch() {
+  var input = document.getElementById('txtConfirmPassword');
+  if (input.value != document.getElementById('txtPassword').value) {
+      input.setCustomValidity('Password Must be Matching.');
+      $('#btnRegister').hide();
+      document.getElementById('registrationErrorMessage').innerHTML = "Password does not match";
+      $("#registrationErrorMessage").show();
+  } else {
+      input.setCustomValidity('');
+      $('#btnRegister').show();
+      $('#registrationErrorMessage').hide();
+      document.getElementById('registrationErrorMessage').innerHTML = "Registration failed";
+  }
+}

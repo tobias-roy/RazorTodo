@@ -23,6 +23,8 @@
                         <span asp-validation-for="Username" class="text-danger"></span>
                         <label asp-for="Password">Password</label>
                         <input type="password" asp-for="Password" class="form-control" id="txtPassword" />
+                        <label for="txtConfirmPassword">Confirm Password</label>
+                        <input type="password" class="form-control" id="txtConfirmPassword" oninput="checkMatch()"/>
                         <span asp-validation-for="Password" class="text-danger"></span>
                         <span id="registrationErrorMessage" class="text-danger" style="display: none">Registration failed</span>
                     </div>
@@ -30,7 +32,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary button-85" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary button-85" data-save="modal">Register</button>
+                <button id="btnRegister" type="button" class="btn btn-primary button-85" data-save="modal">Register</button>
             </div>
         </div>
     </div>
