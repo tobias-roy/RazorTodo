@@ -67,6 +67,80 @@ Open a webbrowser and navigate to http://localhost:5173
 Don't
 ```
 
+## Database Stored Procedure overview
+#### uspCreateTask
+##### Parameters
+- @pTodoDescription VARCHAR(30)
+- @pTodoPriority SMALLINT
+- @pUsername VARCHAR(12)
+- @responseMessage VARCHAR(5)
+##### Returns
+True if created succesfully otherwise false.
+___
+#### uspDeleteFinishedTodo
+##### Parameters
+- @pTodoID UNIQUEIDENTIFIER
+- @responseMessage VARCHAR(5)
+##### Returns
+True if deleted succesfully otherwise false.
+___
+#### uspFetchTodoById
+##### Parameters
+- @pTodoID UNIQUEIDENTIFIER
+##### Returns
+All columns from Todos matching the ID
+___
+#### uspGetFinishedTodos
+##### Parameters
+- @pUsername VARCHAR(12)
+##### Returns
+All rows and columns from Todos matching the username with a completed status of true.
+___
+#### uspGetUnfinishedTodos
+##### Parameters
+- @pUsername VARCHAR(12)
+##### Returns
+All rows and columns from Todos matching the username with a completed status of false.
+___
+#### uspMarkTodoAsDone
+##### Parameters
+- @pTodoID UNIQUEIDENTIFIER
+- @responseMessage VARCHAR(5)
+##### Returns
+True if completed status changed succesfully otherwise false.
+___
+#### uspMarkTodoAsUndone
+##### Parameters
+- @pTodoID UNIQUEIDENTIFIER
+- @responseMessage VARCHAR(5)
+##### Returns
+True if completed status changed succesfully otherwise false.
+___
+#### uspRegisterNewUser
+##### Parameters
+- @pUserName VARCHAR(12)
+- @pPassword VARCHAR(25)
+- @responseMessage VARCHAR(5)
+##### Returns
+True if user registered succesfully otherwise false.
+___
+#### uspUpdateTodo
+##### Parameters
+- @pInputID UNIQUEIDENTIFIER
+- @pInputDescription VARCHAR(30)
+- @pInputPriority SMALLINT
+- @responseMessage VARCHAR(5)
+##### Returns
+True if updated succesfully otherwise false.
+___
+#### uspUserLogin
+##### Parameters
+- @pUserName VARCHAR(12)
+- @pPassword VARCHAR(25)
+- @responseMessage VARCHAR(5)
+##### Returns
+True if user logged in succesfully otherwise false.
+___
 ## Future development
 #### Error handling on submit
 Currently version 1.2 only supports errorhandling on main page loads - We plan to expand this to also handle a faulty connection on a task submit, edit or delete.
